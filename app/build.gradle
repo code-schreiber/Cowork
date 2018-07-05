@@ -1,0 +1,39 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+android {
+    defaultConfig {
+        minSdkVersion Versions.minSdkVersion
+        targetSdkVersion Versions.targetSdkVersion
+        compileSdkVersion Versions.compileSdkVersion
+        versionCode Versions.versionCode
+        versionName Versions.versionName
+        resConfigs "en"
+    }
+
+    lintOptions {
+        abortOnError true
+    }
+}
+
+dependencies {
+    implementation Dependencies.kotlin
+
+    implementation Dependencies.appCompat
+    implementation Dependencies.recyclerView
+    implementation Dependencies.cardView
+    implementation Dependencies.constraintLayout
+
+    implementation Dependencies.timber
+
+    kapt Dependencies.daggerCompiler
+    implementation Dependencies.daggerAndroid
+    kapt Dependencies.daggerAndroidProcessor
+    implementation Dependencies.daggerAndroidSupport
+
+    // Tests
+    testImplementation Dependencies.mockitoKotlin
+    testImplementation Dependencies.kluent
+}
