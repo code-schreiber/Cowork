@@ -3,6 +3,8 @@ apply plugin: 'kotlin'
 
 dependencies {
     implementation Dependencies.kotlin
+    testImplementation Dependencies.mockitoKotlin
+    testImplementation Dependencies.kluent
 }
 
 buildscript {
