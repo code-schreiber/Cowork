@@ -1,7 +1,7 @@
 package com.toolslab.androidstarterkit.view.main
 
-import com.toolslab.androidstarterkit.mvp.BaseView
-import com.toolslab.androidstarterkit.mvp.MvpPresenter
+import com.toolslab.base_mvp.BaseView
+import com.toolslab.base_mvp.MvpPresenter
 
 interface AndroidStarterKitContract {
 

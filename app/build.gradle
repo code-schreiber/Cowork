@@ -19,6 +19,8 @@ android {
 }
 
 dependencies {
+    implementation project(path: ':base-mvp')
+
     implementation Dependencies.kotlin
 
     implementation Dependencies.appCompat

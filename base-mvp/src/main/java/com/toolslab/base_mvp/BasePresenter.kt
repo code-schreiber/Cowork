@@ -1,4 +1,4 @@
-package com.toolslab.androidstarterkit.mvp
+package com.toolslab.base_mvp
 
 abstract class BasePresenter<V : BaseView> : MvpPresenter<V> {
 

@@ -1,6 +1,6 @@
 package com.toolslab.androidstarterkit.view.main
 
-import com.toolslab.androidstarterkit.mvp.BasePresenter
+import com.toolslab.base_mvp.BasePresenter
 import javax.inject.Inject
 
 class AndroidStarterKitPresenter @Inject constructor() :
