@@ -27,7 +27,7 @@ object Versions {
 }
 
 object Dependencies {
-    val kotlin = "org.jetbrains.kotlin:kotlin-stdlib-jre7:${Versions.kotlin}"
+    val kotlin = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${Versions.kotlin}"
 
     val appCompat = "com.android.support:appcompat-v7:${Versions.googleSupport}"
     val recyclerView = "com.android.support:recyclerview-v7:${Versions.googleSupport}"
@@ -35,9 +35,6 @@ object Dependencies {
     val constraintLayout = "com.android.support.constraint:constraint-layout:${Versions.constraintLayout}"
 
     val timber = "com.jakewharton.timber:timber:${Versions.timber}"
-
-    val rxKotlin = "io.reactivex.rxjava2:rxkotlin:${Versions.rxkotlin}"
-    val rxAndroid = "io.reactivex.rxjava2:rxandroid:${Versions.rxandroid}"
 
     val daggerCompiler = "com.google.dagger:dagger-compiler:${Versions.dagger}"
     val daggerAndroid = "com.google.dagger:dagger-android:${Versions.dagger}"
@@ -52,5 +49,4 @@ object Dependencies {
 object Plugins {
     val gradle = "com.android.tools.build:gradle:${Versions.gradle}"
     val kotlin = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlin}"
-    val realm = "io.realm:realm-gradle-plugin:${Versions.realm}"
 }
