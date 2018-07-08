@@ -1,7 +1,6 @@
 object Versions {
     val gradle = "3.1.3"
     val kotlin = "1.2.51"
-    val realm = "5.3.0"
 
     val versionCode = 1
     val versionName = "0.0.1"
@@ -15,9 +14,6 @@ object Versions {
     val constraintLayout = "1.1.1"
 
     val timber = "4.7.0"
-
-    val rxkotlin = "2.2.0"
-    val rxandroid = "2.0.2"
 
     val dagger = "2.15"
 
