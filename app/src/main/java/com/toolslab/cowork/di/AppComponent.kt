@@ -1,8 +1,9 @@
-package com.toolslab.androidstarterkit.di
+package com.toolslab.cowork.di
 
 import android.app.Application
-import com.toolslab.androidstarterkit.Cowork
-import com.toolslab.androidstarterkit.view.main.AndroidStarterKitModule
+import com.toolslab.cowork.Cowork
+import com.toolslab.cowork.network.NetworkModule
+import com.toolslab.cowork.view.main.CoworkModule
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjector
@@ -15,7 +16,8 @@ import javax.inject.Singleton
             AndroidSupportInjectionModule::class,
             AppModule::class,
             ActivitiesBindingModule::class,
-            AndroidStarterKitModule::class
+            CoworkModule::class,
+            NetworkModule::class
         ]
 )
 interface AppComponent : AndroidInjector<Cowork> {

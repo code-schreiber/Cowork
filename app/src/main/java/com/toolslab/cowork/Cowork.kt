@@ -1,6 +1,6 @@
-package com.toolslab.androidstarterkit
+package com.toolslab.cowork
 
-import com.toolslab.androidstarterkit.di.DaggerAppComponent
+import com.toolslab.cowork.di.DaggerAppComponent
 import dagger.android.AndroidInjector
 import dagger.android.DaggerApplication
 import timber.log.Timber

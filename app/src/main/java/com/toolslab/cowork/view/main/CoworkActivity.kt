@@ -1,14 +1,14 @@
-package com.toolslab.androidstarterkit.view.main
+package com.toolslab.cowork.view.main
 
 import android.os.Bundle
-import com.toolslab.androidstarterkit.R
-import com.toolslab.androidstarterkit.view.base.BaseActivity
+import com.toolslab.cowork.R
+import com.toolslab.cowork.view.base.BaseActivity
 import javax.inject.Inject
 
-class AndroidStarterKitActivity : BaseActivity(), AndroidStarterKitContract.View {
+class CoworkActivity : BaseActivity(), CoworkContract.View {
 
     @Inject
-    internal lateinit var presenter: AndroidStarterKitContract.Presenter
+    internal lateinit var presenter: CoworkContract.Presenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

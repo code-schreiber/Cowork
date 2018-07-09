@@ -1,4 +1,4 @@
-package com.toolslab.androidstarterkit.view.base
+package com.toolslab.cowork.view.base
 
 
 import android.annotation.SuppressLint
