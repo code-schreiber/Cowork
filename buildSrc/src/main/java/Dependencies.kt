@@ -17,6 +17,8 @@ object Versions {
 
     val dagger = "2.15"
 
+    val retrofit = "2.4.0"
+
     // Tests
     val mockitoKotlin = "1.5.0"
     val kluent = "1.35"
@@ -36,6 +38,8 @@ object Dependencies {
     val daggerAndroid = "com.google.dagger:dagger-android:${Versions.dagger}"
     val daggerAndroidProcessor = "com.google.dagger:dagger-android-processor:${Versions.dagger}"
     val daggerAndroidSupport = "com.google.dagger:dagger-android-support:${Versions.dagger}"
+
+    val retrofit = "com.squareup.retrofit2:retrofit:${Versions.retrofit}"
 
     // Tests
     val mockitoKotlin = "com.nhaarman:mockito-kotlin-kt1.1:${Versions.mockitoKotlin}"

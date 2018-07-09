@@ -35,6 +35,8 @@ dependencies {
     kapt Dependencies.daggerAndroidProcessor
     implementation Dependencies.daggerAndroidSupport
 
+    implementation Dependencies.retrofit
+
     // Tests
     testImplementation Dependencies.mockitoKotlin
     testImplementation Dependencies.kluent
