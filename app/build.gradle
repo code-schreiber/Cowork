@@ -36,6 +36,11 @@ dependencies {
     implementation Dependencies.daggerAndroidSupport
 
     implementation Dependencies.retrofit
+    implementation Dependencies.retrofitRx
+    implementation Dependencies.converterGson
+    implementation Dependencies.loggingInterceptor
+
+    implementation Dependencies.rxAndroid
 
     // Tests
     testImplementation Dependencies.mockitoKotlin
