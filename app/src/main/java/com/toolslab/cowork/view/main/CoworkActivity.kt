@@ -12,7 +12,7 @@ class CoworkActivity : BaseActivity(), CoworkContract.View {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_android_starter_kit)
+        setContentView(R.layout.activity_cowork)
         presenter.bind(this)
     }
 
