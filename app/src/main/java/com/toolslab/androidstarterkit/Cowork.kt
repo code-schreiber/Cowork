@@ -6,7 +6,7 @@ import dagger.android.DaggerApplication
 import timber.log.Timber
 import timber.log.Timber.DebugTree
 
-class AndroidStarterKit : DaggerApplication() {
+class Cowork : DaggerApplication() {
 
     override fun onCreate() {
         super.onCreate()

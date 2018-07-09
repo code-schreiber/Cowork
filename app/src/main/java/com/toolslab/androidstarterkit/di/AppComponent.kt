@@ -1,7 +1,7 @@
 package com.toolslab.androidstarterkit.di
 
 import android.app.Application
-import com.toolslab.androidstarterkit.AndroidStarterKit
+import com.toolslab.androidstarterkit.Cowork
 import com.toolslab.androidstarterkit.view.main.AndroidStarterKitModule
 import dagger.BindsInstance
 import dagger.Component
@@ -18,7 +18,7 @@ import javax.inject.Singleton
             AndroidStarterKitModule::class
         ]
 )
-interface AppComponent : AndroidInjector<AndroidStarterKit> {
+interface AppComponent : AndroidInjector<Cowork> {
     @Component.Builder
     interface Builder {
         @BindsInstance
