@@ -1,5 +1,6 @@
 package com.toolslab.cowork.network
 
+import com.toolslab.cowork.network.ApiEndpoint.Header.AUTHORIZATION
 import com.toolslab.cowork.network.ApiEndpoint.JWT_AUTH
 import com.toolslab.cowork.network.ApiEndpoint.Path.CITY
 import com.toolslab.cowork.network.ApiEndpoint.Path.COUNTRY
@@ -12,11 +13,9 @@ import com.toolslab.cowork.network.ApiEndpoint.SPACES_OF_SPACE
 import com.toolslab.cowork.network.ApiEndpoint.VALIDATE
 import com.toolslab.cowork.network.model.Jwt
 import com.toolslab.cowork.network.model.Space
+import com.toolslab.cowork.network.model.Validation
 import io.reactivex.Observable
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Path
-import retrofit2.http.Query
+import retrofit2.http.*
 
 // See https://coworkingmap.org/api/docs/
 interface CoworkingMapService {
@@ -28,24 +27,29 @@ interface CoworkingMapService {
     ): Observable<Jwt>
 
     @POST(VALIDATE)
-    fun validate(): Observable<String>
+    fun validate(
+            @Header(AUTHORIZATION) token: String
+    ): Observable<Validation>
 
     @GET(SPACES_OF_COUNTRY)
     fun spaces(
+            @Header(AUTHORIZATION) token: String,
             @Path(COUNTRY) country: String
-    ): Observable<Space>
+    ): Observable<List<Space>>
 
     @GET(SPACES_OF_CITY)
     fun spaces(
+            @Header(AUTHORIZATION) token: String,
             @Path(COUNTRY) country: String,
             @Path(CITY) city: String
-    ): Observable<Space>
+    ): Observable<List<Space>>
 
     @GET(SPACES_OF_SPACE)
     fun spaces(
+            @Header(AUTHORIZATION) token: String,
             @Path(COUNTRY) country: String,
             @Path(CITY) city: String,
             @Path(SPACE) space: String
-    ): Observable<Space>
+    ): Observable<List<Space>>
 
 }

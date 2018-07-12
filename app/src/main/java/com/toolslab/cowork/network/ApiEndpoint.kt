@@ -7,6 +7,10 @@ import com.toolslab.cowork.network.ApiEndpoint.Path.SPACE
 
 internal object ApiEndpoint {
 
+    object Header {
+        const val AUTHORIZATION = "Authorization"
+    }
+
     object Query {
         const val USERNAME = "username"
         const val PASSWORD = "password"
