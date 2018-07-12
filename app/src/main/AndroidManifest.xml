@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.toolslab.cowork">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".Cowork"
         android:allowBackup="false"
