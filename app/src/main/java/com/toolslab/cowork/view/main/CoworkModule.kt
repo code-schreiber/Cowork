@@ -1,6 +1,6 @@
 package com.toolslab.cowork.view.main
 
-import com.toolslab.cowork.network.CoworkingMapService
+import com.toolslab.cowork.db.SpaceRepository
 import dagger.Module
 import dagger.Provides
 import io.reactivex.disposables.CompositeDisposable
@@ -9,7 +9,7 @@ import io.reactivex.disposables.CompositeDisposable
 class CoworkModule {
 
     @Provides
-    fun providePresenter(compositeDisposable: CompositeDisposable, coworkingMapService: CoworkingMapService): CoworkContract.Presenter =
-            CoworkPresenter(compositeDisposable,coworkingMapService)
+    fun providePresenter(compositeDisposable: CompositeDisposable, spaceRepository: SpaceRepository): CoworkContract.Presenter =
+            CoworkPresenter(compositeDisposable, spaceRepository)
 
 }
