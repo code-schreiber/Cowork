@@ -9,9 +9,14 @@ import timber.log.Timber
 import javax.inject.Inject
 
 
-class CoworkPresenter @Inject constructor(private val compositeDisposable: CompositeDisposable,
-                                          private val spaceRepository: SpaceRepository) :
+class CoworkPresenter @Inject constructor() :
         BasePresenter<CoworkContract.View>(), CoworkContract.Presenter {
+
+    @Inject
+    internal lateinit var compositeDisposable: CompositeDisposable
+
+    @Inject
+    internal lateinit var spaceRepository: SpaceRepository
 
     override fun onBound(view: CoworkContract.View) {
         view.showMessage("Ready to search!")
