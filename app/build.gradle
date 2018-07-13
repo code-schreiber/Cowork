@@ -52,7 +52,9 @@ dependencies {
 
 private static def getenv(String varName) {
     def var = System.getenv(varName)
-    def varOrEmpty = var == null ? "\"\"" : "\"$var\""
-    println "enviroment var $varName is $varOrEmpty"
-    return varOrEmpty
+    if (var != null && !var.empty) {
+        return "\"$var\""
+    } else {
+        throw new Exception("$varName not found in environment variables!")
+    }
 }
