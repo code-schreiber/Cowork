@@ -32,20 +32,20 @@ interface CoworkingMapService {
     ): Observable<Validation>
 
     @GET(SPACES_OF_COUNTRY)
-    fun spaces(
+    fun listSpaces(
             @Header(AUTHORIZATION) token: String,
             @Path(COUNTRY) country: String
     ): Observable<List<Space>>
 
     @GET(SPACES_OF_CITY)
-    fun spaces(
+    fun listSpaces(
             @Header(AUTHORIZATION) token: String,
             @Path(COUNTRY) country: String,
             @Path(CITY) city: String
     ): Observable<List<Space>>
 
     @GET(SPACES_OF_SPACE)
-    fun spaces(
+    fun listSpaces(
             @Header(AUTHORIZATION) token: String,
             @Path(COUNTRY) country: String,
             @Path(CITY) city: String,
