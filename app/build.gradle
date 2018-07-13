@@ -11,6 +11,9 @@ android {
         versionCode Versions.versionCode
         versionName Versions.versionName
         resConfigs "en"
+
+        buildConfigField "String", "API_USER", getenv("API_USER")
+        buildConfigField "String", "API_PASSWORD", getenv("API_PASSWORD")
     }
 
     lintOptions {
@@ -45,4 +48,9 @@ dependencies {
     // Tests
     testImplementation Dependencies.mockitoKotlin
     testImplementation Dependencies.kluent
+}
+
+private static def getenv(String varName) {
+    def var = System.getenv(varName)
+    return var == null ? "\"\"" : var
 }
