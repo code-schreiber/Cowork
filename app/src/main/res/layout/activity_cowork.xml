@@ -5,4 +5,46 @@
     android:layout_height="match_parent"
     tools:context="com.toolslab.cowork.view.main.CoworkActivity">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/activity_cowork_country_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:label="country comes here"
+            android:text="Germany" />
+
+        <EditText
+            android:id="@+id/activity_cowork_city_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:label="city comes here"
+            android:text="Berlin" />
+
+        <EditText
+            android:id="@+id/activity_cowork_space_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:label="space comes here"
+            android:text="rent24" />
+
+        <Button
+            android:id="@+id/activity_cowork_search_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Search" />
+
+        <TextView
+            android:id="@+id/activity_cowork_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:maxLines="999999"
+            android:scrollbars="vertical"
+            android:textSize="@dimen/font_small"
+            tools:text="text comes here" />
+    </LinearLayout>
+
 </android.support.constraint.ConstraintLayout>
