@@ -27,3 +27,6 @@ cache:
   - "$HOME/.m2/repository"
   - "$HOME/.gradle"
   - ".gradle"
+env:
+  global:
+    secure: qWCNGwq7OSOarEnCE0oTiZt9rp9rcCdLOTCYbopQDw9/+hRGc//V1NHP7IrLe3x1IET5uj2w/Vf147m2XuowpMXgPZNdEciqVd67gjlrC0xusy4KwYRspn/ChHeLI//Hb54SS6G3BkFdi7O8xVPVOv8usaCQwLrJn9L9dJjXO0k7brf0e4MFOr718i+MF7XaBCmqBz1U+fjn0hVBDxkbjw1v/7+5XH/LEw0RHUFSW9KkeQNfCXtOmP2pPFR8f/T9CVMB7eOrZngPOaxDufbAZ/r/03XHnQ/gBtJeOdA3KLlqLbu5CIWKgYm/shhQgNdeRHL0MtaC2euwlBiW1ble68iXtq36GFo7BdNOnp6aPBoMZfLaUDD5o1fW09gpKRFj/m3903Cc0Dp0NmIj0LKNgXxgvAHoovrJWqsj+KPCu5uG4vegluMcZqsF+ciHnfTH7XckVuzrcmKpgH4ljs0yjiOprzdUhM5iXSd7C4+6JnkfaGY6MgXgEXbmqoRbETZCE4ZqpxUSa9ICWgw+KQCq8CZNAQYFRkBhq2heXyaq/TUToXe0O5hAVVswMqbg6FbJxZ5QoGzZfpQBYK+Tt1YbL+XrRxSKkZTCQ3jHzFRoR3qSp/Vp3evFN6Un+R1t3cDKORforqzbs4U2cLLb2u5ni8ylRP0lNHemq7cyKOcrTFA=

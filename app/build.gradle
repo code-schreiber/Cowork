@@ -52,5 +52,7 @@ dependencies {
 
 private static def getenv(String varName) {
     def var = System.getenv(varName)
-    return var == null ? "\"\"" : var
+    def varOrEmpty = var == null ? "\"\"" : var
+    println "enviroment var $varName is $varOrEmpty"
+    return varOrEmpty
 }
