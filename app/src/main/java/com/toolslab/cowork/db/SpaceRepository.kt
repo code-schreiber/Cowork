@@ -11,7 +11,7 @@ class SpaceRepository @Inject constructor() {
     internal lateinit var networkHandler: NetworkHandler
 
     fun listSpaces(country: String, city: String, space: String): Observable<List<Space>> {
-        return networkHandler.listSpaces(country, city, space)
+        return networkHandler.listSpaces(country, city, space).toObservable()
     }
 
 }
