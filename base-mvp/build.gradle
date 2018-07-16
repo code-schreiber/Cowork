@@ -16,7 +16,3 @@ buildscript {
         classpath Plugins.kotlin
     }
 }
-repositories {
-    google()
-    jcenter()
-}
