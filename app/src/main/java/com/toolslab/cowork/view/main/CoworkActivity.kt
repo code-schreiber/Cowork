@@ -2,6 +2,7 @@ package com.toolslab.cowork.view.main
 
 import android.os.Bundle
 import android.support.annotation.VisibleForTesting
+import butterknife.OnClick
 import com.toolslab.cowork.R
 import com.toolslab.cowork.view.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_cowork.*
@@ -16,7 +17,6 @@ class CoworkActivity : BaseActivity(), CoworkContract.View {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cowork)
         presenter.bind(this)
-        activity_cowork_search_button.setOnClickListener { onSearchClicked() }
     }
 
     override fun onDestroy() {
@@ -29,6 +29,7 @@ class CoworkActivity : BaseActivity(), CoworkContract.View {
     }
 
     @VisibleForTesting
+    @OnClick(R.id.activity_cowork_search_button)
     fun onSearchClicked() {
         val country = activity_cowork_country_edit_text.text.toString()
         val city = activity_cowork_city_edit_text.text.toString()

@@ -14,6 +14,7 @@ object Versions {
     val constraintLayout = "1.1.1"
 
     val timber = "4.7.0"
+    val butterknife = "8.8.1"
 
     val dagger = "2.15"
 
@@ -37,6 +38,8 @@ object Dependencies {
     val constraintLayout = "com.android.support.constraint:constraint-layout:${Versions.constraintLayout}"
 
     val timber = "com.jakewharton.timber:timber:${Versions.timber}"
+    val butterknife = "com.jakewharton:butterknife:${Versions.butterknife}"
+    val butterknifeCompiler = "com.jakewharton:butterknife-compiler:${Versions.butterknife}"
 
     val daggerCompiler = "com.google.dagger:dagger-compiler:${Versions.dagger}"
     val daggerAndroid = "com.google.dagger:dagger-android:${Versions.dagger}"
