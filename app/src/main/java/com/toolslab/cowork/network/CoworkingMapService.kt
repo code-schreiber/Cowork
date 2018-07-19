@@ -49,6 +49,6 @@ interface CoworkingMapService {
             @Path(COUNTRY) country: String,
             @Path(CITY) city: String,
             @Path(SPACE) space: String
-    ): Single<List<Space>>
+    ): Single<Space>
 
 }
