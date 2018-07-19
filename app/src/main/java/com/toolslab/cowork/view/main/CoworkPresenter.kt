@@ -2,6 +2,8 @@ package com.toolslab.cowork.view.main
 
 import com.toolslab.base_mvp.BasePresenter
 import com.toolslab.cowork.db.SpaceRepository
+import com.toolslab.cowork.network.exception.NoConnectionException
+import com.toolslab.cowork.network.exception.NotFoundException
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -27,17 +29,25 @@ class CoworkPresenter @Inject constructor() :
     }
 
     override fun listSpaces(country: String, city: String, space: String) {
+        if (country.isEmpty()) {
+            view.showMessage("Give at least a country")
+            return
+        }
         view.showMessage("Loading")
         compositeDisposable.add(spaceRepository.listSpaces(country, city, space)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         {
-                            view.showSpaces(it)
+                            view.showMessage("${it.size} spaces found:\n $it")
                         },
                         {
                             Timber.e(it)
-                            view.showMessage(it.message)
+                            when (it) {
+                                is NotFoundException -> view.showMessage("No places found")
+                                is NoConnectionException -> view.showMessage("No Internet Connection")
+                                else -> view.showMessage(it.message ?: "Unknown error occurred")
+                            }
                         }
                 )
         )

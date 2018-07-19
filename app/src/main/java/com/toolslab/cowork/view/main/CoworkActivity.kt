@@ -3,7 +3,6 @@ package com.toolslab.cowork.view.main
 import android.os.Bundle
 import android.support.annotation.VisibleForTesting
 import com.toolslab.cowork.R
-import com.toolslab.cowork.network.model.Space
 import com.toolslab.cowork.view.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_cowork.*
 import javax.inject.Inject
@@ -25,11 +24,7 @@ class CoworkActivity : BaseActivity(), CoworkContract.View {
         super.onDestroy()
     }
 
-    override fun showSpaces(spaces: List<Space>) {
-        activity_cowork_text_view.text = "${spaces.size} spaces found:\n $spaces"
-    }
-
-    override fun showMessage(message: String?) {
+    override fun showMessage(message: String) {
         activity_cowork_text_view.text = message
     }
 

@@ -2,7 +2,6 @@ package com.toolslab.cowork.view.main
 
 import com.toolslab.base_mvp.BaseView
 import com.toolslab.base_mvp.MvpPresenter
-import com.toolslab.cowork.network.model.Space
 
 interface CoworkContract {
 
@@ -11,8 +10,7 @@ interface CoworkContract {
     }
 
     interface View : BaseView {
-        fun showSpaces(spaces: List<Space>)
-        fun showMessage(message: String?)
+        fun showMessage(message: String)
     }
 
 }
