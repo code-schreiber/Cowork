@@ -1,10 +1,14 @@
 package com.toolslab.cowork.network
 
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
+import com.toolslab.cowork.BuildConfig.DEBUG
 import dagger.Module
 import dagger.Provides
-import okhttp3.Authenticator
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import okhttp3.logging.HttpLoggingInterceptor.Level.BODY
+import okhttp3.logging.HttpLoggingInterceptor.Level.NONE
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
@@ -18,29 +22,34 @@ class NetworkModule {
     }
 
     @Provides
-    fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
+    fun provideRetrofit(okHttpClient: OkHttpClient, gson: Gson): Retrofit {
         return Retrofit.Builder()
                 .baseUrl(ApiEndpoint.API_BASE_URL)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(gson))
                 .client(okHttpClient)
                 .build()
     }
 
     @Provides
-    fun provideOkHttpClient(authenticator: Authenticator): OkHttpClient {
-        val httpLoggingInterceptor = HttpLoggingInterceptor()
-        httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
+    fun provideOkHttpClient(httpLoggingInterceptor: HttpLoggingInterceptor): OkHttpClient {
         return OkHttpClient.Builder()
-                .authenticator(authenticator)
                 .addInterceptor(httpLoggingInterceptor)
                 .build()
     }
 
     @Provides
-    fun provideAuthenticator(): Authenticator {
-        // TODO implement Authenticator
-        return Authenticator.NONE
+    fun provideHttpLoggingInterceptor(): HttpLoggingInterceptor {
+        val httpLoggingInterceptor = HttpLoggingInterceptor()
+        httpLoggingInterceptor.level = if (DEBUG) BODY else NONE
+        return httpLoggingInterceptor
+    }
+
+    @Provides
+    fun provideGson(): Gson {
+        val builder = GsonBuilder()
+        if (DEBUG) builder.setPrettyPrinting()
+        return builder.create()
     }
 
 }
