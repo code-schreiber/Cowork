@@ -75,7 +75,6 @@ class CoworkPresenterTest {
 
         verify(mockView, times(2)).showMessage(any())
         verify(mockCompositeDisposable).add(any())
-        verify(mockView).showSpaces(spaces)
     }
 
     @Test
@@ -84,9 +83,8 @@ class CoworkPresenterTest {
 
         underTest.listSpaces(country, city, space)
 
-        verify(mockView, times(3)).showMessage(any())
+        verify(mockView, times(2)).showMessage(any())
         verify(mockCompositeDisposable).add(any())
-        verify(mockView).showMessage(errorMessage)
     }
 
 }
