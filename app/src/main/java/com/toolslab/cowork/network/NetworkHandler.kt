@@ -1,7 +1,9 @@
 package com.toolslab.cowork.network
 
+import android.support.annotation.VisibleForTesting
 import com.toolslab.cowork.network.model.Space
-import io.reactivex.Observable
+import io.reactivex.Single
+import io.reactivex.SingleSource
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -13,30 +15,55 @@ class NetworkHandler @Inject constructor() {
     @Inject
     internal lateinit var credentialsProvider: CredentialsProvider
 
-    fun listSpaces(country: String, city: String, space: String): Observable<List<Space>> {
-        if (credentialsProvider.token.isEmpty()) {
-            Timber.d("Getting jwt first...")
-            return coworkingMapService.getJwt(credentialsProvider.user, credentialsProvider.password)
-                    .concatMap {
-                        Timber.d("Got jwt $it")
-                        credentialsProvider.token = it.token
-                        listSpaces(it.token, country, space, city) // TODO handle token not being valid (anymore) or empty or network error
-                    }
+    @Inject
+    internal lateinit var httpErrorHandler: HttpErrorHandler
+
+    fun listSpaces(country: String, city: String, space: String): Single<List<Space>> {
+        return if (credentialsProvider.token.isEmpty()) {
+            listSpacesAuthenticatingFirst(country, space, city)
         } else {
-            return listSpaces(credentialsProvider.token, country, space, city)
+            listSpaces(credentialsProvider.token, country, space, city)
         }
     }
 
-    private fun listSpaces(token: String, country: String, space: String, city: String): Observable<List<Space>> {
-        // TODO servers sends one object instead of list of one when there is only one result
-        val tokenForRequest = "Bearer $token"
-        return if (city.isNotEmpty() && space.isNotEmpty()) {
-            coworkingMapService.listSpaces(tokenForRequest, country, city, space) // TODO handle not found i.e. {"code":"no_spaces","message":"Space not found","data":{"status":404}} for https://coworkingmap.org/wp-json/spaces/Germany/berlin/beta
+    private fun listSpacesAuthenticatingFirst(country: String, space: String, city: String): Single<List<Space>> {
+        Timber.d("Getting jwt first...")
+        return coworkingMapService.getJwt(credentialsProvider.user, credentialsProvider.password)
+                .onErrorResumeNext { throwable: Throwable ->
+                    httpErrorHandler.handle(throwable)
+                }
+                .flatMap {
+                    Timber.d("Got a new jwt")
+                    credentialsProvider.token = it.token
+                    listSpaces(it.token, country, space, city)
+                }
+    }
+
+    private fun listSpaces(token: String, country: String, space: String, city: String): Single<List<Space>> {
+        val tokenForRequest = createTokenForRequest(token)
+        val single = if (city.isNotEmpty() && space.isNotEmpty()) {
+            coworkingMapService.listSpaces(tokenForRequest, country, city, space).map { listOf(it) }
         } else if (city.isNotEmpty()) {
             coworkingMapService.listSpaces(tokenForRequest, country, city)
         } else {
             coworkingMapService.listSpaces(tokenForRequest, country)
         }
+        return single.onErrorResumeNext { throwable: Throwable ->
+            handleExpiredToken(throwable, country, city, space)
+        }
     }
+
+    private fun handleExpiredToken(throwable: Throwable, country: String, city: String, space: String): SingleSource<out List<Space>> {
+        return if (httpErrorHandler.isTokenExpired(throwable)) {
+            Timber.d("Jwt has expired")
+            credentialsProvider.token = ""
+            listSpaces(country, city, space)
+        } else {
+            httpErrorHandler.handle(throwable)
+        }
+    }
+
+    @VisibleForTesting
+    fun createTokenForRequest(token: String) = "Bearer $token"
 
 }
