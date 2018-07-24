@@ -1,3 +1,3 @@
-package com.toolslab.cowork.network.exception
+package com.toolslab.base_network.exception
 
 open class HttpException(throwable: Throwable) : RuntimeException(throwable)

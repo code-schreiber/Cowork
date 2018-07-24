@@ -1,19 +1,19 @@
-package com.toolslab.cowork.network
+package com.toolslab.base_network
 
-import com.toolslab.cowork.network.ApiEndpoint.Header.AUTHORIZATION
-import com.toolslab.cowork.network.ApiEndpoint.JWT_AUTH
-import com.toolslab.cowork.network.ApiEndpoint.Path.CITY
-import com.toolslab.cowork.network.ApiEndpoint.Path.COUNTRY
-import com.toolslab.cowork.network.ApiEndpoint.Path.SPACE
-import com.toolslab.cowork.network.ApiEndpoint.Query.PASSWORD
-import com.toolslab.cowork.network.ApiEndpoint.Query.USERNAME
-import com.toolslab.cowork.network.ApiEndpoint.SPACES_OF_CITY
-import com.toolslab.cowork.network.ApiEndpoint.SPACES_OF_COUNTRY
-import com.toolslab.cowork.network.ApiEndpoint.SPACES_OF_SPACE
-import com.toolslab.cowork.network.ApiEndpoint.VALIDATE
-import com.toolslab.cowork.network.model.Jwt
-import com.toolslab.cowork.network.model.Space
-import com.toolslab.cowork.network.model.Validation
+import com.toolslab.base_network.ApiEndpoint.Header.AUTHORIZATION
+import com.toolslab.base_network.ApiEndpoint.JWT_AUTH
+import com.toolslab.base_network.ApiEndpoint.Path.CITY
+import com.toolslab.base_network.ApiEndpoint.Path.COUNTRY
+import com.toolslab.base_network.ApiEndpoint.Path.SPACE
+import com.toolslab.base_network.ApiEndpoint.Query.PASSWORD
+import com.toolslab.base_network.ApiEndpoint.Query.USERNAME
+import com.toolslab.base_network.ApiEndpoint.SPACES_OF_CITY
+import com.toolslab.base_network.ApiEndpoint.SPACES_OF_COUNTRY
+import com.toolslab.base_network.ApiEndpoint.SPACES_OF_SPACE
+import com.toolslab.base_network.ApiEndpoint.VALIDATE
+import com.toolslab.base_network.model.Jwt
+import com.toolslab.base_network.model.Space
+import com.toolslab.base_network.model.Validation
 import io.reactivex.Single
 import retrofit2.http.*
 

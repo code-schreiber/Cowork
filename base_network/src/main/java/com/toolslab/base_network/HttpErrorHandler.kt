@@ -1,9 +1,9 @@
-package com.toolslab.cowork.network
+package com.toolslab.base_network
 
-import com.toolslab.cowork.network.exception.ForbiddenException
-import com.toolslab.cowork.network.exception.NoConnectionException
-import com.toolslab.cowork.network.exception.NotFoundException
-import com.toolslab.cowork.network.exception.UnauthorizedException
+import com.toolslab.base_network.exception.ForbiddenException
+import com.toolslab.base_network.exception.NoConnectionException
+import com.toolslab.base_network.exception.NotFoundException
+import com.toolslab.base_network.exception.UnauthorizedException
 import io.reactivex.Single
 import retrofit2.HttpException
 import java.io.IOException

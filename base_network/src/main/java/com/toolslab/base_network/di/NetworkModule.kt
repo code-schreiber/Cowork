@@ -1,14 +1,14 @@
-package com.toolslab.cowork.network
+package com.toolslab.base_network.di
 
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import com.toolslab.cowork.BuildConfig.DEBUG
+import com.toolslab.base_network.ApiEndpoint
+import com.toolslab.base_network.CoworkingMapService
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import okhttp3.logging.HttpLoggingInterceptor.Level.BODY
-import okhttp3.logging.HttpLoggingInterceptor.Level.NONE
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
@@ -41,14 +41,14 @@ class NetworkModule {
     @Provides
     fun provideHttpLoggingInterceptor(): HttpLoggingInterceptor {
         val httpLoggingInterceptor = HttpLoggingInterceptor()
-        httpLoggingInterceptor.level = if (DEBUG) BODY else NONE
+        httpLoggingInterceptor.level = BODY // TODO  if (DEBUG) BODY else NONE
         return httpLoggingInterceptor
     }
 
     @Provides
     fun provideGson(): Gson {
         val builder = GsonBuilder()
-        if (DEBUG) builder.setPrettyPrinting()
+        builder.setPrettyPrinting() // TODO if (DEBUG)
         return builder.create()
     }
 
