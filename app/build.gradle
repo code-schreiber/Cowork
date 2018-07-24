@@ -22,7 +22,8 @@ android {
 }
 
 dependencies {
-    implementation project(path: ':base-mvp')
+    implementation project(path: ':base_mvp')
+    implementation project(path: ':base_repository')
 
     implementation Dependencies.kotlin
 
@@ -37,11 +38,6 @@ dependencies {
     implementation Dependencies.daggerAndroid
     kapt Dependencies.daggerAndroidProcessor
     implementation Dependencies.daggerAndroidSupport
-
-    implementation Dependencies.retrofit
-    implementation Dependencies.retrofitRx
-    implementation Dependencies.converterGson
-    implementation Dependencies.loggingInterceptor
 
     implementation Dependencies.rxAndroid
 

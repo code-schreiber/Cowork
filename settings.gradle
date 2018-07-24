@@ -1,1 +1,4 @@
-include ':app', ':base-mvp'
+include ':app',
+        ':base_mvp',
+        ':base_repository',
+        ':base_network'
