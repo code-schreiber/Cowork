@@ -1,15 +1,14 @@
 package com.toolslab.cowork.view.main
 
 import com.toolslab.base_mvp.BasePresenter
-import com.toolslab.cowork.db.SpaceRepository
-import com.toolslab.cowork.network.exception.NoConnectionException
-import com.toolslab.cowork.network.exception.NotFoundException
+import com.toolslab.base_repository.SpaceRepository
+import com.toolslab.base_repository.exception.NoConnectionException
+import com.toolslab.base_repository.exception.NotFoundException
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
 import javax.inject.Inject
-
 
 class CoworkPresenter @Inject constructor() :
         BasePresenter<CoworkContract.View>(), CoworkContract.Presenter {

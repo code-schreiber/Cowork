@@ -1,18 +1,18 @@
-package com.toolslab.base_network
+package com.toolslab.base_repository
 
-import com.toolslab.base_network.exception.ForbiddenException
-import com.toolslab.base_network.exception.NoConnectionException
-import com.toolslab.base_network.exception.NotFoundException
-import com.toolslab.base_network.exception.UnauthorizedException
+import com.toolslab.base_repository.exception.ForbiddenException
+import com.toolslab.base_repository.exception.NoConnectionException
+import com.toolslab.base_repository.exception.NotFoundException
+import com.toolslab.base_repository.exception.UnauthorizedException
 import io.reactivex.Single
 import retrofit2.HttpException
 import java.io.IOException
 import java.net.HttpURLConnection.*
 import javax.inject.Inject
 
-internal class HttpErrorHandler @Inject constructor() {
+internal class ErrorHandler @Inject constructor() {
 
-    fun <T> handle(throwable: Throwable): Single<T> {
+    internal fun <T> handle(throwable: Throwable): Single<T> {
         return when (throwable) {
             is IOException -> Single.error(NoConnectionException(throwable))
             is HttpException -> when (throwable.code()) {
@@ -24,7 +24,5 @@ internal class HttpErrorHandler @Inject constructor() {
             else -> Single.error(throwable)
         }
     }
-
-    fun isTokenExpired(throwable: Throwable) = throwable is HttpException && throwable.code() == HTTP_FORBIDDEN
 
 }

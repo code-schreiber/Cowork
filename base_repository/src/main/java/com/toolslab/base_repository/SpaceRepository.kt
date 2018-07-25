@@ -10,9 +10,16 @@ class SpaceRepository @Inject constructor() {
     @Inject
     internal lateinit var coworkingMapApi: CoworkingMapApi
 
+    @Inject
+    internal lateinit var errorHandler: ErrorHandler
+
     fun listSpaces(country: String, city: String, space: String): Observable<List<Space>> {
         // No db yet, just get data through api call
-        return coworkingMapApi.listSpaces(city, space, country).toObservable()
+        return coworkingMapApi.listSpaces(city, space, country)
+                .onErrorResumeNext {
+                    errorHandler.handle(it)
+                }
+                .toObservable()
     }
 
 }
