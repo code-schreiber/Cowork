@@ -25,11 +25,6 @@ interface CoworkingMapService {
             @Query(PASSWORD) password: String
     ): Single<Jwt>
 
-    @POST(VALIDATE)
-    fun validate(
-            @Header(AUTHORIZATION) token: String
-    ): Single<Validation>
-
     @GET(SPACES_OF_COUNTRY)
     fun listSpaces(
             @Header(AUTHORIZATION) token: String,
@@ -51,4 +46,8 @@ interface CoworkingMapService {
             @Path(SPACE) space: String
     ): Single<Space>
 
+    @POST(VALIDATE)
+    fun validate(
+            @Header(AUTHORIZATION) token: String
+    ): Single<Validation>
 }
