@@ -1,7 +1,7 @@
 package com.toolslab.cowork.di
 
 import android.app.Application
-import com.toolslab.base_repository.di.LibraryComponent
+import com.toolslab.base_repository.di.RepositoryComponent
 import com.toolslab.cowork.Cowork
 import com.toolslab.cowork.view.main.CoworkModule
 import dagger.BindsInstance
@@ -19,7 +19,7 @@ import javax.inject.Singleton
             CoworkModule::class
         ],
         dependencies = [
-            LibraryComponent::class
+            RepositoryComponent::class
         ]
 )
 interface AppComponent : AndroidInjector<Cowork> {
@@ -28,7 +28,7 @@ interface AppComponent : AndroidInjector<Cowork> {
         @BindsInstance
         fun create(app: Application): Builder
 
-        fun libraryComponent(libraryComponent: LibraryComponent): Builder
+        fun libraryComponent(repositoryComponent: RepositoryComponent): Builder
 
         fun build(): AppComponent
     }

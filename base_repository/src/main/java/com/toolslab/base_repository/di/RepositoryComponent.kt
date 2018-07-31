@@ -7,13 +7,14 @@ import dagger.Component
 @Component(
         modules = [NetworkModule::class]
 )
-interface LibraryComponent {
+interface RepositoryComponent {
 
     // Provision method so CoworkingMapService gets provided to consumers of this component
     fun provideCoworkingMapService(): CoworkingMapService
 
     @Component.Builder
     interface Builder {
-        fun build(): LibraryComponent
+        fun build(): RepositoryComponent
     }
+
 }
