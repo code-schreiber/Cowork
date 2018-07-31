@@ -30,7 +30,7 @@ object Versions {
 }
 
 object Dependencies {
-    val kotlin = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${Versions.kotlin}"
+    val kotlin = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${Versions.kotlin}"
 
     val appCompat = "com.android.support:appcompat-v7:${Versions.googleSupport}"
     val recyclerView = "com.android.support:recyclerview-v7:${Versions.googleSupport}"
