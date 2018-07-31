@@ -1,5 +1,7 @@
 package com.toolslab.base_repository
 
+// TODO move all modules to app-specific packages
+
 import com.toolslab.base_repository.exception.ForbiddenException
 import com.toolslab.base_repository.exception.NoConnectionException
 import com.toolslab.base_repository.exception.NotFoundException
