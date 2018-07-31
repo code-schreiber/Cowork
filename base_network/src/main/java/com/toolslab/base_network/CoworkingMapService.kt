@@ -1,16 +1,16 @@
 package com.toolslab.base_network
 
+import com.toolslab.base_network.ApiEndpoint.Endpoint.JWT_AUTH
+import com.toolslab.base_network.ApiEndpoint.Endpoint.SPACES_OF_CITY
+import com.toolslab.base_network.ApiEndpoint.Endpoint.SPACES_OF_COUNTRY
+import com.toolslab.base_network.ApiEndpoint.Endpoint.SPACES_OF_SPACE
+import com.toolslab.base_network.ApiEndpoint.Endpoint.VALIDATE
 import com.toolslab.base_network.ApiEndpoint.Header.AUTHORIZATION
-import com.toolslab.base_network.ApiEndpoint.JWT_AUTH
 import com.toolslab.base_network.ApiEndpoint.Path.CITY
 import com.toolslab.base_network.ApiEndpoint.Path.COUNTRY
 import com.toolslab.base_network.ApiEndpoint.Path.SPACE
 import com.toolslab.base_network.ApiEndpoint.Query.PASSWORD
 import com.toolslab.base_network.ApiEndpoint.Query.USERNAME
-import com.toolslab.base_network.ApiEndpoint.SPACES_OF_CITY
-import com.toolslab.base_network.ApiEndpoint.SPACES_OF_COUNTRY
-import com.toolslab.base_network.ApiEndpoint.SPACES_OF_SPACE
-import com.toolslab.base_network.ApiEndpoint.VALIDATE
 import com.toolslab.base_network.model.Jwt
 import com.toolslab.base_network.model.Space
 import com.toolslab.base_network.model.Validation
