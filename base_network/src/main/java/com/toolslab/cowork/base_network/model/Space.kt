@@ -1,18 +1,18 @@
 package com.toolslab.cowork.base_network.model
 
-import com.google.gson.annotations.SerializedName
+import com.squareup.moshi.Json
 
 data class Space(
 
-        @SerializedName("city")
+        @Json(name = "city")
         val city: String,
 
-        @SerializedName("map")
+        @Json(name = "map")
         val map: Map,
 
-        @SerializedName("name")
+        @Json(name = "name")
         val name: String,
 
-        @SerializedName("slug")
+        @Json(name = "slug")
         val slug: String
 )

@@ -1,12 +1,12 @@
 package com.toolslab.cowork.base_network.model
 
-import com.google.gson.annotations.SerializedName
+import com.squareup.moshi.Json
 
 data class Validation(
 
-        @SerializedName("code")
+        @Json(name = "code")
         val code: String,
 
-        @SerializedName("data")
+        @Json(name = "data")
         val data: Data
 )

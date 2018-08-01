@@ -10,7 +10,8 @@ dependencies {
 
     api Dependencies.retrofit
     implementation Dependencies.retrofitRx
-    api Dependencies.converterGson
+    api Dependencies.moshi
+    api Dependencies.converterMoshi
     api Dependencies.loggingInterceptor
 
     testImplementation Dependencies.mockitoKotlin

@@ -1,21 +1,21 @@
 package com.toolslab.cowork.base_network.model
 
-import com.google.gson.annotations.SerializedName
+import com.squareup.moshi.Json
 
 data class Jwt(
 
-        @SerializedName("token")
+        @Json(name = "token")
         val token: String,
 
-        @SerializedName("user_email")
+        @Json(name = "user_email")
         val userEmail: String,
 
-        @SerializedName("user_nicename")
+        @Json(name = "user_nicename")
         val userNiceName: String,
 
-        @SerializedName("user_display_name")
+        @Json(name = "user_display_name")
         val userDisplayName: String,
 
-        @SerializedName("request")
+        @Json(name = "request")
         val request: Int
 )

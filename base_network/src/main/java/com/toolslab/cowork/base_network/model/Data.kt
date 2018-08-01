@@ -1,9 +1,9 @@
 package com.toolslab.cowork.base_network.model
 
-import com.google.gson.annotations.SerializedName
+import com.squareup.moshi.Json
 
 data class Data(
 
-        @SerializedName("status")
+        @Json(name = "status")
         val status: Int
 )

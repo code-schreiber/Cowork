@@ -1,7 +1,6 @@
 package com.toolslab.cowork.base_network.di
 
-import com.google.gson.Gson
-import com.google.gson.GsonBuilder
+import com.squareup.moshi.Moshi
 import com.toolslab.cowork.base_network.ApiEndpoint
 import com.toolslab.cowork.base_network.CoworkingMapService
 import dagger.Module
@@ -11,7 +10,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import okhttp3.logging.HttpLoggingInterceptor.Level.BODY
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
-import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.converter.moshi.MoshiConverterFactory
 
 @Module
 class NetworkModule {
@@ -22,11 +21,11 @@ class NetworkModule {
     }
 
     @Provides
-    fun provideRetrofit(okHttpClient: OkHttpClient, gson: Gson): Retrofit {
+    fun provideRetrofit(okHttpClient: OkHttpClient, moshi: Moshi): Retrofit {
         return Retrofit.Builder()
                 .baseUrl(ApiEndpoint.API_BASE_URL)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .addConverterFactory(GsonConverterFactory.create(gson))
+                .addConverterFactory(MoshiConverterFactory.create(moshi))
                 .client(okHttpClient)
                 .build()
     }
@@ -46,10 +45,8 @@ class NetworkModule {
     }
 
     @Provides
-    fun provideGson(): Gson {
-        val builder = GsonBuilder()
-        builder.setPrettyPrinting() // TODO if (DEBUG)
-        return builder.create()
+    fun provideMoshi(): Moshi {
+        return Moshi.Builder().build()
     }
 
 }
