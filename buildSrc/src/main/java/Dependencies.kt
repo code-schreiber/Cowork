@@ -18,10 +18,6 @@ object Versions {
 
     val dagger = "2.15"
 
-    val retrofit = "2.4.0"
-    val converterGson = "2.3.0"
-    val loggingInterceptor = "3.6.0"
-
     val rxAndroid = "2.0.2"
 
     // Tests
@@ -45,11 +41,6 @@ object Dependencies {
     val daggerAndroid = "com.google.dagger:dagger-android:${Versions.dagger}"
     val daggerAndroidProcessor = "com.google.dagger:dagger-android-processor:${Versions.dagger}"
     val daggerAndroidSupport = "com.google.dagger:dagger-android-support:${Versions.dagger}"
-
-    val retrofit = "com.squareup.retrofit2:retrofit:${Versions.retrofit}"
-    val retrofitRx = "com.squareup.retrofit2:adapter-rxjava2:${Versions.retrofit}"
-    val converterGson = "com.squareup.retrofit2:converter-gson:${Versions.converterGson}"
-    val loggingInterceptor = "com.squareup.okhttp3:logging-interceptor:${Versions.loggingInterceptor}"
 
     val rxAndroid = "io.reactivex.rxjava2:rxandroid:${Versions.rxAndroid}"
 
