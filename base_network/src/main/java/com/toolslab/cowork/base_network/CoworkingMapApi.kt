@@ -14,7 +14,7 @@ class CoworkingMapApi @Inject constructor() {
 
     fun getJwt(user: String, password: String) = coworkingMapService.getJwt(user, password)
 
-    fun listSpacesAlreadyAuthenticated(token: String, country: String, space: String, city: String): Single<List<Space>> {
+    fun listSpacesAlreadyAuthenticated(token: String, country: String, city: String, space: String): Single<List<Space>> {
         val tokenForRequest = createTokenForRequest(token)
         return if (city.isNotEmpty() && space.isNotEmpty()) {
             coworkingMapService.listSpaces(tokenForRequest, country, city, space).map { listOf(it) }
@@ -27,7 +27,6 @@ class CoworkingMapApi @Inject constructor() {
 
     fun validate(token: String) = coworkingMapService.validate(token)
 
-    // TODO add test
     fun isTokenExpired(throwable: Throwable) = throwable is HttpException && throwable.code() == HttpURLConnection.HTTP_FORBIDDEN
 
     @VisibleForTesting
