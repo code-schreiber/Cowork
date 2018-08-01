@@ -1,4 +1,4 @@
-package com.toolslab.base_mvp
+package com.toolslab.cowork.base_mvp
 
 interface MvpPresenter<in V : MvpView> {
 

@@ -1,9 +1,9 @@
 package com.toolslab.cowork.view.main
 
 import com.nhaarman.mockito_kotlin.*
-import com.toolslab.base_repository.SpaceRepository
-import com.toolslab.base_network.model.Map
-import com.toolslab.base_network.model.Space
+import com.toolslab.cowork.base_network.model.Map
+import com.toolslab.cowork.base_network.model.Space
+import com.toolslab.cowork.base_repository.SpaceRepository
 import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.android.plugins.RxAndroidPlugins

@@ -1,3 +1,3 @@
-package com.toolslab.base_repository.exception
+package com.toolslab.cowork.base_repository.exception
 
 class NotFoundException(cause: Throwable) : RepositoryException(cause)

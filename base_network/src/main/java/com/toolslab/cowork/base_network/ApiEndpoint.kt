@@ -1,8 +1,8 @@
-package com.toolslab.base_network
+package com.toolslab.cowork.base_network
 
-import com.toolslab.base_network.ApiEndpoint.Path.CITY
-import com.toolslab.base_network.ApiEndpoint.Path.COUNTRY
-import com.toolslab.base_network.ApiEndpoint.Path.SPACE
+import com.toolslab.cowork.base_network.ApiEndpoint.Path.CITY
+import com.toolslab.cowork.base_network.ApiEndpoint.Path.COUNTRY
+import com.toolslab.cowork.base_network.ApiEndpoint.Path.SPACE
 
 
 internal object ApiEndpoint {

@@ -1,4 +1,4 @@
-package com.toolslab.base_mvp
+package com.toolslab.cowork.base_mvp
 
 abstract class BasePresenter<V : BaseView> : MvpPresenter<V> {
 

@@ -1,11 +1,11 @@
 package com.toolslab.cowork.view.main
 
-import com.toolslab.base_mvp.BasePresenter
-import com.toolslab.base_repository.SpaceRepository
-import com.toolslab.base_repository.exception.NoConnectionException
-import com.toolslab.base_repository.exception.NotFoundException
 import com.toolslab.cowork.BuildConfig.API_PASSWORD
 import com.toolslab.cowork.BuildConfig.API_USER
+import com.toolslab.cowork.base_mvp.BasePresenter
+import com.toolslab.cowork.base_repository.SpaceRepository
+import com.toolslab.cowork.base_repository.exception.NoConnectionException
+import com.toolslab.cowork.base_repository.exception.NotFoundException
 import com.toolslab.cowork.base_repository.model.Credentials
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable

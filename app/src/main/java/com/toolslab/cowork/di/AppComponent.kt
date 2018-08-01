@@ -1,8 +1,8 @@
 package com.toolslab.cowork.di
 
 import android.app.Application
-import com.toolslab.base_repository.di.RepositoryComponent
 import com.toolslab.cowork.Cowork
+import com.toolslab.cowork.base_repository.di.RepositoryComponent
 import com.toolslab.cowork.view.main.CoworkModule
 import dagger.BindsInstance
 import dagger.Component

@@ -1,7 +1,7 @@
-package com.toolslab.base_network
+package com.toolslab.cowork.base_network
 
 import android.support.annotation.VisibleForTesting
-import com.toolslab.base_network.model.Space
+import com.toolslab.cowork.base_network.model.Space
 import io.reactivex.Single
 import retrofit2.HttpException
 import java.net.HttpURLConnection

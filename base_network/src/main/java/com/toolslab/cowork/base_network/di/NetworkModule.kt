@@ -1,9 +1,9 @@
-package com.toolslab.base_network.di
+package com.toolslab.cowork.base_network.di
 
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import com.toolslab.base_network.ApiEndpoint
-import com.toolslab.base_network.CoworkingMapService
+import com.toolslab.cowork.base_network.ApiEndpoint
+import com.toolslab.cowork.base_network.CoworkingMapService
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient

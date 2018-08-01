@@ -1,11 +1,9 @@
-package com.toolslab.base_repository
+package com.toolslab.cowork.base_repository
 
-// TODO move all modules to app-specific packages
-
-import com.toolslab.base_repository.exception.ForbiddenException
-import com.toolslab.base_repository.exception.NoConnectionException
-import com.toolslab.base_repository.exception.NotFoundException
-import com.toolslab.base_repository.exception.UnauthorizedException
+import com.toolslab.cowork.base_repository.exception.ForbiddenException
+import com.toolslab.cowork.base_repository.exception.NoConnectionException
+import com.toolslab.cowork.base_repository.exception.NotFoundException
+import com.toolslab.cowork.base_repository.exception.UnauthorizedException
 import io.reactivex.Single
 import retrofit2.HttpException
 import java.io.IOException

@@ -1,4 +1,4 @@
-package com.toolslab.base_network.model
+package com.toolslab.cowork.base_network.model
 
 import com.google.gson.annotations.SerializedName
 

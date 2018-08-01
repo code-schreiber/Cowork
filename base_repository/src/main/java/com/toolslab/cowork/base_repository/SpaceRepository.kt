@@ -1,8 +1,7 @@
-package com.toolslab.base_repository
+package com.toolslab.cowork.base_repository
 
-import com.toolslab.base_network.CoworkingMapApi
-import com.toolslab.base_network.model.Space
-import com.toolslab.cowork.base_repository.TokenRepository
+import com.toolslab.cowork.base_network.CoworkingMapApi
+import com.toolslab.cowork.base_network.model.Space
 import com.toolslab.cowork.base_repository.model.Credentials
 import io.reactivex.Single
 import java.util.logging.Level
@@ -27,15 +26,16 @@ class SpaceRepository @Inject constructor() {
         return listSpaces(country, space, city)
     }
 
-    private fun listSpaces(country: String, space: String, city: String) =
-            if (tokenRepository.getToken().isValid()) {
-                listSpacesAlreadyAuthenticated(country, space, city)
-            } else {
-                listSpacesAuthenticatingFirst(country, space, city)
-            }
-                    .onErrorResumeNext {
-                        errorHandler.handle(it) // TODO nicer identation
-                    }
+    private fun listSpaces(country: String, space: String, city: String): Single<List<Space>> {
+        val single = if (tokenRepository.getToken().isValid()) {
+            listSpacesAlreadyAuthenticated(country, space, city)
+        } else {
+            listSpacesAuthenticatingFirst(country, space, city)
+        }
+        return single.onErrorResumeNext {
+            errorHandler.handle(it)
+        }
+    }
 
     private fun listSpacesAuthenticatingFirst(country: String, space: String, city: String) =
             coworkingMapApi.getJwt(credentials.user, credentials.password)
