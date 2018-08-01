@@ -1,5 +1,9 @@
 <resources>
 
-    <string name="app_name">AndroidStarterKit</string>
+    <string name="app_name">Cowork</string>
+
+    <string name="country">Country (needed)</string>
+    <string name="city">City (optional)</string>
+    <string name="coworking_space_name">Coworking space name (optional)</string>
 
 </resources>

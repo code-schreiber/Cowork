@@ -14,22 +14,21 @@
             android:id="@+id/activity_cowork_country_edit_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:label="country comes here"
+            android:hint="@string/country"
             android:text="Germany" />
 
         <EditText
             android:id="@+id/activity_cowork_city_edit_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:label="city comes here"
+            android:hint="@string/city"
             android:text="Berlin" />
 
         <EditText
             android:id="@+id/activity_cowork_space_edit_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:label="space comes here"
-            android:text="rent24" />
+            android:hint="@string/coworking_space_name" />
 
         <Button
             android:id="@+id/activity_cowork_search_button"
@@ -41,7 +40,6 @@
             android:id="@+id/activity_cowork_text_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:maxLines="999999"
             android:scrollbars="vertical"
             android:textSize="@dimen/font_small"
             tools:text="text comes here" />
