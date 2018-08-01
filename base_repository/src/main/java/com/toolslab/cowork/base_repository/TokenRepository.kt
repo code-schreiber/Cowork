@@ -7,15 +7,15 @@ class TokenRepository @Inject constructor() {
 
     internal val cachedToken = Token()
 
-    fun getToken() = cachedToken.token
+    internal fun getToken() = cachedToken.token
 
-    fun saveToken(token: String) {
+    internal fun saveToken(token: String) {
         cachedToken.token = token // TODO persist token in database
     }
 
-    fun invalidateToken() {
+    internal fun invalidateToken() {
         cachedToken.invalidate()
     }
 
-    fun isTokenValid() = cachedToken.isValid()
+    internal fun isTokenValid() = cachedToken.isValid()
 }

@@ -22,7 +22,7 @@ class SpaceRepository @Inject constructor() {
 
     private lateinit var credentials: Credentials
 
-    fun listSpaces(credentials: Credentials, country: String, city: String, space: String): Single<List<Space>> {
+    internal fun listSpaces(credentials: Credentials, country: String, city: String, space: String): Single<List<Space>> {
         this.credentials = credentials
         return listSpaces(country, city, space)
     }
@@ -48,7 +48,7 @@ class SpaceRepository @Inject constructor() {
                         listSpacesAlreadyAuthenticated(country, city, space)
                     }
 
-    private fun listSpacesAlreadyAuthenticated(country: String, space: String, city: String) =
+    private fun listSpacesAlreadyAuthenticated(country: String, city: String, space: String) =
             coworkingMapApi.listSpacesAlreadyAuthenticated(tokenRepository.getToken(), country, city, space)
                     .onErrorResumeNext {
                         handleExpiredToken(it, country, city, space)
