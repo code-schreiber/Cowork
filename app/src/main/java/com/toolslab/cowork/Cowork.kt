@@ -1,6 +1,6 @@
 package com.toolslab.cowork
 
-import com.toolslab.base_repository.di.DaggerRepositoryComponent
+import com.toolslab.cowork.base_repository.di.DaggerRepositoryComponent
 import com.toolslab.cowork.di.DaggerAppComponent
 import dagger.android.AndroidInjector
 import dagger.android.DaggerApplication
