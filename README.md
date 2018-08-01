@@ -1,4 +1,8 @@
+Master  
 [![Build Status](https://travis-ci.org/code-schreiber/Cowork.svg?branch=master)](https://travis-ci.org/code-schreiber/Cowork)
+Develop  
+[![Build Status](https://travis-ci.org/code-schreiber/Cowork.svg?branch=develop)](https://travis-ci.org/code-schreiber/Cowork)
+  
 [![Open Source Love svg3](https://badges.frapsoft.com/os/v3/open-source.svg?v=103)](https://github.com/ellerbrock/open-source-badges/)
 
 <p align="center">
