@@ -10,6 +10,7 @@ import java.io.IOException
 import java.net.HttpURLConnection.*
 import javax.inject.Inject
 
+// TODO write new tests
 internal class ErrorHandler @Inject constructor() {
 
     internal fun <T> handle(throwable: Throwable): Single<T> =
