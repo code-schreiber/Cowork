@@ -2,12 +2,10 @@ package com.toolslab.cowork.view.main
 
 import com.nhaarman.mockito_kotlin.*
 import com.toolslab.cowork.BuildConfig
-import com.toolslab.cowork.base_repository.SpaceRepository
 import com.toolslab.cowork.base_repository.model.Credentials
-import com.toolslab.cowork.base_repository.model.Map
 import com.toolslab.cowork.base_repository.model.Space
-import io.reactivex.Observable
 import io.reactivex.Scheduler
+import io.reactivex.Single
 import io.reactivex.android.plugins.RxAndroidPlugins
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.internal.schedulers.ExecutorScheduler
@@ -24,12 +22,12 @@ class CoworkPresenterTest {
     private val country = "a country"
     private val city = "a city"
     private val space = "a space"
-    private val space1 = Space(city, Map("address1", "lat1", "lng1"), "space1", "slug1")
-    private val space2 = Space(city, Map("address2", "lat2", "lng2"), "space2", "slug2")
+    private val space2 = Space("space2")
+    private val space1 = Space("space1")
     private val spaces = listOf(space1, space2)
 
     private val mockCompositeDisposable: CompositeDisposable = mock()
-    private val mockSpaceRepository: SpaceRepository = mock()
+    private val mockCoworkInteractor: CoworkInteractor = mock()
     private val mockView: CoworkContract.View = mock()
 
     private val underTest = CoworkPresenter()
@@ -55,7 +53,7 @@ class CoworkPresenterTest {
     fun setUp() {
         underTest.bind(mockView)
         underTest.compositeDisposable = mockCompositeDisposable
-        underTest.spaceRepository = mockSpaceRepository
+        underTest.coworkInteractor = mockCoworkInteractor
     }
 
     @Test
@@ -73,7 +71,7 @@ class CoworkPresenterTest {
     @Test
     fun listSpaces() {
         val credentials = underTest.createCredentials()
-        whenever(mockSpaceRepository.listSpaces(credentials, country, city, space)).thenReturn(Observable.just(spaces))
+        whenever(mockCoworkInteractor.listSpaces(credentials, country, city, space)).thenReturn(Single.just(spaces))
 
         underTest.listSpaces(country, city, space)
 
@@ -84,7 +82,7 @@ class CoworkPresenterTest {
     @Test
     fun listSpacesWithError() {
         val credentials = underTest.createCredentials()
-        whenever(mockSpaceRepository.listSpaces(credentials, country, city, space)).thenReturn(Observable.error(Exception(errorMessage)))
+        whenever(mockCoworkInteractor.listSpaces(credentials, country, city, space)).thenReturn(Single.error(Exception(errorMessage)))
 
         underTest.listSpaces(country, city, space)
 
@@ -98,7 +96,7 @@ class CoworkPresenterTest {
 
         verify(mockView, times(2)).showMessage(any())
         verifyNoMoreInteractions(mockView)
-        verifyZeroInteractions(mockSpaceRepository)
+        verifyZeroInteractions(mockCoworkInteractor)
         verifyZeroInteractions(mockCompositeDisposable)
     }
 
