@@ -1,5 +1,6 @@
 package com.toolslab.cowork.view.main
 
+import android.support.annotation.VisibleForTesting
 import com.toolslab.cowork.BuildConfig.API_PASSWORD
 import com.toolslab.cowork.BuildConfig.API_USER
 import com.toolslab.cowork.base_mvp.BasePresenter
@@ -55,6 +56,7 @@ class CoworkPresenter @Inject constructor() :
         )
     }
 
-    private fun createCredentials() = Credentials(API_USER, API_PASSWORD)
+    @VisibleForTesting
+    fun createCredentials() = Credentials(API_USER, API_PASSWORD)
 
 }

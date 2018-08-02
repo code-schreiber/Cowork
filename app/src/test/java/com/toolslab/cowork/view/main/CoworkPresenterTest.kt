@@ -1,14 +1,17 @@
 package com.toolslab.cowork.view.main
 
 import com.nhaarman.mockito_kotlin.*
-import com.toolslab.cowork.base_network.model.Map
-import com.toolslab.cowork.base_network.model.Space
+import com.toolslab.cowork.BuildConfig
 import com.toolslab.cowork.base_repository.SpaceRepository
+import com.toolslab.cowork.base_repository.model.Credentials
+import com.toolslab.cowork.base_repository.model.Map
+import com.toolslab.cowork.base_repository.model.Space
 import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.android.plugins.RxAndroidPlugins
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.internal.schedulers.ExecutorScheduler
+import org.amshove.kluent.shouldEqual
 import org.junit.Before
 import org.junit.BeforeClass
 import org.junit.Test
@@ -69,7 +72,8 @@ class CoworkPresenterTest {
 
     @Test
     fun listSpaces() {
-        whenever(mockSpaceRepository.listSpaces(country, city, space)).thenReturn(Observable.just(spaces))
+        val credentials = underTest.createCredentials()
+        whenever(mockSpaceRepository.listSpaces(credentials, country, city, space)).thenReturn(Observable.just(spaces))
 
         underTest.listSpaces(country, city, space)
 
@@ -79,7 +83,8 @@ class CoworkPresenterTest {
 
     @Test
     fun listSpacesWithError() {
-        whenever(mockSpaceRepository.listSpaces(country, city, space)).thenReturn(Observable.error(Exception(errorMessage)))
+        val credentials = underTest.createCredentials()
+        whenever(mockSpaceRepository.listSpaces(credentials, country, city, space)).thenReturn(Observable.error(Exception(errorMessage)))
 
         underTest.listSpaces(country, city, space)
 
@@ -87,4 +92,20 @@ class CoworkPresenterTest {
         verify(mockCompositeDisposable).add(any())
     }
 
+    @Test
+    fun listSpacesWithoutCountry() {
+        underTest.listSpaces("", "", "")
+
+        verify(mockView, times(2)).showMessage(any())
+        verifyNoMoreInteractions(mockView)
+        verifyZeroInteractions(mockSpaceRepository)
+        verifyZeroInteractions(mockCompositeDisposable)
+    }
+
+    @Test
+    fun createCredentials() {
+        val credentials = underTest.createCredentials()
+
+        credentials shouldEqual Credentials(BuildConfig.API_USER, BuildConfig.API_PASSWORD)
+    }
 }

@@ -1,11 +1,8 @@
 package com.toolslab.cowork.base_repository
 
 import com.toolslab.cowork.base_network.CoworkingMapApi
-import com.toolslab.cowork.base_network.model.Space // TODO dont pass network json models
 import com.toolslab.cowork.base_repository.model.Credentials
-import io.reactivex.Single
-import java.util.logging.Level
-import java.util.logging.Logger
+import com.toolslab.cowork.base_repository.model.Space
 import javax.inject.Inject
 
 // TODO write tests

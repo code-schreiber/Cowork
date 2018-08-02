@@ -1,13 +1,28 @@
 package com.toolslab.cowork.view.main
 
 import android.os.Bundle
+import android.widget.EditText
+import android.widget.TextView
+import butterknife.BindView
+import butterknife.ButterKnife
 import butterknife.OnClick
 import com.toolslab.cowork.R
 import com.toolslab.cowork.view.base.BaseActivity
-import kotlinx.android.synthetic.main.activity_cowork.*
 import javax.inject.Inject
 
 class CoworkActivity : BaseActivity(), CoworkContract.View {
+
+    @BindView(R.id.activity_cowork_country_edit_text)
+    internal lateinit var countryEditText: EditText
+
+    @BindView(R.id.activity_cowork_city_edit_text)
+    internal lateinit var cityEditText: EditText
+
+    @BindView(R.id.activity_cowork_space_edit_text)
+    internal lateinit var spaceEditText: EditText
+
+    @BindView(R.id.activity_cowork_text_view)
+    internal lateinit var textView: TextView
 
     @Inject
     internal lateinit var presenter: CoworkContract.Presenter
@@ -15,12 +30,8 @@ class CoworkActivity : BaseActivity(), CoworkContract.View {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cowork)
+        ButterKnife.bind(this)
         presenter.bind(this)
-
-        activity_cowork_search_button.setOnClickListener {
-            // FIXME remove and fix butterknife
-            onSearchClickedTemp()
-        }
     }
 
     override fun onDestroy() {
@@ -29,19 +40,15 @@ class CoworkActivity : BaseActivity(), CoworkContract.View {
     }
 
     override fun showMessage(message: String) {
-        activity_cowork_text_view.text = message
+        textView.text = message
     }
 
     @OnClick(R.id.activity_cowork_search_button)
     internal fun onSearchClicked() {
-        val country = activity_cowork_country_edit_text.text.toString()
-        val city = activity_cowork_city_edit_text.text.toString()
-        val space = activity_cowork_space_edit_text.text.toString()
+        val country = countryEditText.text.toString()
+        val city = cityEditText.text.toString()
+        val space = spaceEditText.text.toString()
         presenter.listSpaces(country, city, space)
-    }
-
-    internal fun onSearchClickedTemp() {
-        onSearchClicked()
     }
 
 }
