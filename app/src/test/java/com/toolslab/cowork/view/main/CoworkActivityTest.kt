@@ -4,12 +4,9 @@ import android.text.Editable
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.verify
 import com.nhaarman.mockito_kotlin.whenever
-import kotlinx.android.synthetic.main.activity_cowork.*
 import org.junit.Before
-import org.junit.Ignore
 import org.junit.Test
 
-@Ignore("Ignore until butterknife is fixed")
 class CoworkActivityTest {
 
     private val country = "a country"
@@ -18,23 +15,21 @@ class CoworkActivityTest {
 
     private val mockCountryEditable: Editable = mock()
     private val mockCityEditable: Editable = mock()
-
     private val mockSpaceEditable: Editable = mock()
-
-    private val mockPresenter: CoworkContract.Presenter = mock()
 
     private val underTest = CoworkActivity()
 
     @Before
     fun setUp() {
-//        whenever(underTest.activity_cowork_country_edit_text.text).thenReturn(mockCountryEditable)
-//        whenever(underTest.activity_cowork_city_edit_text.text).thenReturn(mockCityEditable)
-//        whenever(underTest.activity_cowork_space_edit_text.text).thenReturn(mockSpaceEditable)
-//        whenever(mockCountryEditable.toString()).thenReturn(country)
-//        whenever(mockCityEditable.toString()).thenReturn(city)
-//        whenever(mockSpaceEditable.toString()).thenReturn(space)
+        underTest.countryEditText = mock()
+        underTest.cityEditText = mock()
+        underTest.spaceEditText = mock()
+        underTest.textView = mock()
+        underTest.presenter = mock()
 
-        underTest.presenter = mockPresenter
+        whenever(underTest.countryEditText.text).thenReturn(mockCountryEditable)
+        whenever(underTest.cityEditText.text).thenReturn(mockCityEditable)
+        whenever(underTest.spaceEditText.text).thenReturn(mockSpaceEditable)
     }
 
     @Test
@@ -43,44 +38,40 @@ class CoworkActivityTest {
 
         underTest.showMessage(message)
 
-        verify(underTest.activity_cowork_text_view).text = message
+        verify(underTest.textView).text = message
     }
 
     @Test
-    fun onSearchClicked() {
-        underTest.onSearchClicked()
-
-        verify(mockPresenter).listSpaces(country, city, space)
-    }
-
-    @Test
-    fun onSearchClickedOnlyCountryAndCity() {
-        whenever(mockSpaceEditable.toString()).thenReturn("")
-
-        underTest.onSearchClicked()
-
-        verify(mockPresenter).listSpaces(country)
-    }
-
-    @Test
-    fun onSearchClickedOnlyCountry() {
+    fun onSearchClickedWithCountry() {
+        whenever(mockCountryEditable.toString()).thenReturn(country)
         whenever(mockCityEditable.toString()).thenReturn("")
         whenever(mockSpaceEditable.toString()).thenReturn("")
 
         underTest.onSearchClicked()
 
-        verify(mockPresenter).listSpaces(country)
+        verify(underTest.presenter).listSpaces(country)
     }
 
     @Test
-    fun onSearchClickedWithNothing() {
-        whenever(mockCountryEditable.toString()).thenReturn("")
-        whenever(mockCityEditable.toString()).thenReturn("")
+    fun onSearchClickedWithCountryAndCity() {
+        whenever(mockCountryEditable.toString()).thenReturn(country)
+        whenever(mockCityEditable.toString()).thenReturn(city)
         whenever(mockSpaceEditable.toString()).thenReturn("")
 
         underTest.onSearchClicked()
 
-        verify(mockPresenter).listSpaces("aaa")
+        verify(underTest.presenter).listSpaces(country, city)
+    }
+
+    @Test
+    fun onSearchClickedWithCountryCityAndSpace() {
+        whenever(mockCountryEditable.toString()).thenReturn(country)
+        whenever(mockCityEditable.toString()).thenReturn(city)
+        whenever(mockSpaceEditable.toString()).thenReturn(space)
+
+        underTest.onSearchClicked()
+
+        verify(underTest.presenter).listSpaces(country, city, space)
     }
 
 }
