@@ -10,8 +10,6 @@ import io.reactivex.Single
 import org.amshove.kluent.shouldEqual
 import org.junit.Before
 import org.junit.Test
-import retrofit2.HttpException
-import java.net.HttpURLConnection
 
 class CoworkingMapApiTest {
 
@@ -25,7 +23,6 @@ class CoworkingMapApiTest {
     private val space2 = Space(city, Map("address2", "lat2", "lng2"), "space2", "slug2")
     private val spaces = listOf(space1, space2)
 
-    private val mockThrowable: HttpException = mock()
     private val mockCoworkingMapService: CoworkingMapService = mock()
 
     private val underTest = CoworkingMapApi()
@@ -51,10 +48,10 @@ class CoworkingMapApiTest {
     }
 
     @Test
-    fun listSpacesAlreadyAuthenticated() {
-        val spacesInCountry = underTest.listSpacesAlreadyAuthenticated(token, country, "", "").blockingGet()
-        val spacesInCity = underTest.listSpacesAlreadyAuthenticated(token, country, city, "").blockingGet()
-        val space = underTest.listSpacesAlreadyAuthenticated(token, country, city, space).blockingGet()
+    fun listSpaces() {
+        val spacesInCountry = underTest.listSpaces(token, country, "", "").blockingGet()
+        val spacesInCity = underTest.listSpaces(token, country, city, "").blockingGet()
+        val space = underTest.listSpaces(token, country, city, space).blockingGet()
 
         spacesInCountry shouldEqual spaces
         spacesInCity shouldEqual spaces
@@ -69,24 +66,6 @@ class CoworkingMapApiTest {
         val validation = underTest.validate(token).blockingGet()
 
         validation shouldEqual expectedValidation
-    }
-
-    @Test
-    fun isTokenExpired() {
-        whenever(mockThrowable.code()).thenReturn(HttpURLConnection.HTTP_FORBIDDEN)
-
-        val isTokenExpired = underTest.isTokenExpired(mockThrowable)
-
-        isTokenExpired shouldEqual true
-    }
-
-    @Test
-    fun isTokenNotExpired() {
-        val throwable = Exception()
-
-        val isTokenExpired = underTest.isTokenExpired(throwable)
-
-        isTokenExpired shouldEqual false
     }
 
     @Test
