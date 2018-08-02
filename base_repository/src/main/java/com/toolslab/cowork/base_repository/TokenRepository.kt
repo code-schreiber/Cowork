@@ -3,7 +3,7 @@ package com.toolslab.cowork.base_repository
 import com.toolslab.cowork.base_repository.model.Token
 import javax.inject.Inject
 
-class TokenRepository @Inject constructor() {
+internal class TokenRepository @Inject constructor() {
 
     internal val cachedToken = Token()
 
