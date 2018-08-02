@@ -1,3 +1,4 @@
 include ':app',
         ':base_mvp',
-        ':base_repository'
+        ':base_repository',
+        ':base_network'
