@@ -1,52 +1,82 @@
 package com.toolslab.cowork.base_network.di
 
 import com.squareup.moshi.Moshi
-import com.toolslab.cowork.base_network.ApiEndpoint
-import com.toolslab.cowork.base_network.CoworkingMapService
+import com.toolslab.cowork.base_network.ApiEndpoint.API_BASE_URL
+import com.toolslab.cowork.base_network.ReauthenticateInterceptor
+import com.toolslab.cowork.base_network.service.CoworkingMapAuthService
+import com.toolslab.cowork.base_network.service.CoworkingMapService
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
-import okhttp3.logging.HttpLoggingInterceptor.Level.BODY
+import okhttp3.logging.HttpLoggingInterceptor.Level.BASIC
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
+import javax.inject.Named
 
 @Module
 class NetworkModule {
 
     @Provides
-    fun provideCoworkingMapService(retrofit: Retrofit): CoworkingMapService {
-        return retrofit.create(CoworkingMapService::class.java)
-    }
+    fun provideCoworkingMapService(@Named(API) retrofit: Retrofit): CoworkingMapService =
+            retrofit.create(CoworkingMapService::class.java)
 
     @Provides
-    fun provideRetrofit(okHttpClient: OkHttpClient, moshi: Moshi): Retrofit {
-        return Retrofit.Builder()
-                .baseUrl(ApiEndpoint.API_BASE_URL)
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .addConverterFactory(MoshiConverterFactory.create(moshi))
-                .client(okHttpClient)
-                .build()
-    }
+    @Named(API)
+    fun provideRetrofit(@Named(API) okHttpClient: OkHttpClient, moshi: Moshi): Retrofit =
+            Retrofit.Builder()
+                    .baseUrl(API_BASE_URL)
+                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                    .addConverterFactory(MoshiConverterFactory.create(moshi))
+                    .client(okHttpClient)
+                    .build()
 
     @Provides
-    fun provideOkHttpClient(httpLoggingInterceptor: HttpLoggingInterceptor): OkHttpClient {
-        return OkHttpClient.Builder()
-                .addInterceptor(httpLoggingInterceptor)
-                .build()
-    }
+    @Named(API)
+    fun provideOkHttpClient(httpLoggingInterceptor: HttpLoggingInterceptor, reauthenticateInterceptor: ReauthenticateInterceptor) =
+            OkHttpClient.Builder()
+                    .addInterceptor(httpLoggingInterceptor)
+                    .addInterceptor(reauthenticateInterceptor)
+                    .build()
+
+    @Provides
+    fun provideCoworkingMapAuthService(@Named(AUTH_API) retrofit: Retrofit): CoworkingMapAuthService =
+            retrofit.create(CoworkingMapAuthService::class.java)
+
+    @Provides
+    @Named(AUTH_API)
+    fun provideAuthRetrofit(@Named(AUTH_API) okHttpClient: OkHttpClient, moshi: Moshi): Retrofit =
+            Retrofit.Builder()
+                    .baseUrl(API_BASE_URL)
+                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                    .addConverterFactory(MoshiConverterFactory.create(moshi))
+                    .client(okHttpClient)
+                    .build()
+
+    @Provides
+    @Named(AUTH_API)
+    fun provideOkHttpAuthClient(httpLoggingInterceptor: HttpLoggingInterceptor) =
+            OkHttpClient.Builder()
+                    .addInterceptor(httpLoggingInterceptor)
+                    .build()
 
     @Provides
     fun provideHttpLoggingInterceptor(): HttpLoggingInterceptor {
         val httpLoggingInterceptor = HttpLoggingInterceptor()
-        httpLoggingInterceptor.level = BODY // TODO  if (DEBUG) BODY else NONE
+        httpLoggingInterceptor.level = BASIC
         return httpLoggingInterceptor
     }
 
     @Provides
-    fun provideMoshi(): Moshi {
-        return Moshi.Builder().build()
+    fun provideMoshi(): Moshi =
+            Moshi.Builder().build()
+
+    companion object {
+        // Avoids cyclic dependency for ReauthenticateInterceptor used in OkHttpClient
+        // See difference between provideOkHttpClient() and provideOkHttpAuthClient()
+        private const val API = "API"
+        private const val AUTH_API = "AUTH_API"
     }
 
 }
