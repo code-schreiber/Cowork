@@ -14,6 +14,8 @@ dependencies {
     api Dependencies.converterMoshi
     api Dependencies.loggingInterceptor
 
+    implementation Dependencies.rxAndroid
+
     testImplementation Dependencies.mockitoKotlin
     testImplementation Dependencies.kluent
 }

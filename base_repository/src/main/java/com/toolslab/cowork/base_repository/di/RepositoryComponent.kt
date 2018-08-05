@@ -1,7 +1,7 @@
 package com.toolslab.cowork.base_repository.di
 
-import com.toolslab.cowork.base_network.CoworkingMapService
 import com.toolslab.cowork.base_network.di.NetworkModule
+import com.toolslab.cowork.base_network.service.CoworkingMapService
 import dagger.Component
 
 @Component(
