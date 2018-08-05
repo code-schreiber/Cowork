@@ -21,6 +21,4 @@ internal class ErrorHandler @Inject constructor() {
                 else -> Single.error(RepositoryException(throwable))
             }
 
-    internal fun isTokenExpired(throwable: Throwable) = throwable is HttpException && throwable.code() == HTTP_FORBIDDEN
-
 }
