@@ -2,7 +2,7 @@ package com.toolslab.cowork.view.main
 
 import com.nhaarman.mockito_kotlin.*
 import com.toolslab.cowork.BuildConfig
-import com.toolslab.cowork.base_repository.model.Credentials
+import com.toolslab.cowork.base_network.storage.Credentials
 import com.toolslab.cowork.base_repository.model.Space
 import io.reactivex.Scheduler
 import io.reactivex.Single
@@ -51,9 +51,9 @@ class CoworkPresenterTest {
 
     @Before
     fun setUp() {
-        underTest.bind(mockView)
         underTest.compositeDisposable = mockCompositeDisposable
         underTest.coworkInteractor = mockCoworkInteractor
+        underTest.bind(mockView)
     }
 
     @Test

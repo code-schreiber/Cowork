@@ -22,7 +22,7 @@ class SpaceRepository @Inject constructor() {
     @Inject
     internal lateinit var spaceModelConverter: SpaceModelConverter
 
-    fun listSpaces(credentials: Credentials, country: String, city: String, space: String): Single<MutableList<Space>> {
+    fun listSpaces(credentials: Credentials, country: String, city: String, space: String): Single<List<Space>> {
         credentialsStorage.saveCredentials(credentials)
         return coworkingMapApi.listSpaces(country, city, space)
                 .onErrorResumeNext {

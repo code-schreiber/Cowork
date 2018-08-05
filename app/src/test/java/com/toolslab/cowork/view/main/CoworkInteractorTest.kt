@@ -2,7 +2,7 @@ package com.toolslab.cowork.view.main
 
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.whenever
-import com.toolslab.cowork.base_repository.model.Credentials
+import com.toolslab.cowork.base_network.storage.Credentials
 import com.toolslab.cowork.base_repository.model.Space
 import io.reactivex.Single
 import org.amshove.kluent.shouldEqual
