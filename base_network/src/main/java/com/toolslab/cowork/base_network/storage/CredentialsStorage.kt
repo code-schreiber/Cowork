@@ -14,17 +14,18 @@ class CredentialsStorage @Inject constructor() {
         cachedToken.token = token // TODO persist token in database
     }
 
+    fun getCredentials() = Companion.credentials
+
     fun saveCredentials(credentials: Credentials) {
         Companion.credentials = credentials
     }
 
-    fun getCredentials() = Companion.credentials
-
-    private companion object {
+    @VisibleForTesting
+    internal companion object {
         // TODO solve without static variable
         @VisibleForTesting
         @JvmStatic
-        private lateinit var credentials: Credentials
+        internal lateinit var credentials: Credentials
     }
 
 }
