@@ -4,9 +4,9 @@ import android.support.annotation.VisibleForTesting
 import com.toolslab.cowork.BuildConfig.API_PASSWORD
 import com.toolslab.cowork.BuildConfig.API_USER
 import com.toolslab.cowork.base_mvp.BasePresenter
+import com.toolslab.cowork.base_network.storage.Credentials
 import com.toolslab.cowork.base_repository.exception.NoConnectionException
 import com.toolslab.cowork.base_repository.exception.NotFoundException
-import com.toolslab.cowork.base_repository.model.Credentials
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
