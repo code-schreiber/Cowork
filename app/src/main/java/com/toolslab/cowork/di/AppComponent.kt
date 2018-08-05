@@ -28,7 +28,7 @@ interface AppComponent : AndroidInjector<Cowork> {
         @BindsInstance
         fun create(app: Application): Builder
 
-        fun libraryComponent(repositoryComponent: RepositoryComponent): Builder
+        fun repositoryComponent(repositoryComponent: RepositoryComponent): Builder
 
         fun build(): AppComponent
     }

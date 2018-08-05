@@ -22,7 +22,7 @@ class Cowork : DaggerApplication() {
         return DaggerAppComponent
                 .builder()
                 .create(this)
-                .libraryComponent(repositoryComponent)
+                .repositoryComponent(repositoryComponent)
                 .build()
     }
 
