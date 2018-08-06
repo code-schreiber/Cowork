@@ -1,0 +1,4 @@
+<resources>
+    <!-- TODO: Add Google Maps Release API key. -->
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">YOUR_RELEASE_KEY_HERE</string>
+</resources>

@@ -6,12 +6,13 @@ object Versions {
     val versionName = "0.0.1"
 
     val minSdkVersion = 20
-    val targetSdkVersion = 28
-    val compileSdkVersion = 28
+    val targetSdkVersion = 27
+    val compileSdkVersion = 27
 
     // Libraries
     val googleSupport = "27.1.1"
     val constraintLayout = "1.1.1"
+    val googleMaps = "15.0.1"
 
     val timber = "4.7.0"
     val butterknife = "8.8.1"
@@ -37,6 +38,7 @@ object Dependencies {
     val recyclerView = "com.android.support:recyclerview-v7:${Versions.googleSupport}"
     val cardView = "com.android.support:cardview-v7:${Versions.googleSupport}"
     val constraintLayout = "com.android.support.constraint:constraint-layout:${Versions.constraintLayout}"
+    val googleMaps = "com.google.android.gms:play-services-maps:${Versions.googleMaps}"
 
     val timber = "com.jakewharton.timber:timber:${Versions.timber}"
     val butterknife = "com.jakewharton:butterknife:${Versions.butterknife}"
