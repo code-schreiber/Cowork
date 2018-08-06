@@ -22,8 +22,8 @@ android {
 }
 
 dependencies {
-    implementation project(path: ':base_mvp')
-    implementation project(path: ':base_repository')
+    implementation project(Projects.baseMvp)
+    implementation project(Projects.baseRepository)
 
     implementation Dependencies.kotlin
 

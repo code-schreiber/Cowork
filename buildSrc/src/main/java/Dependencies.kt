@@ -68,3 +68,10 @@ object Plugins {
     const val gradle = "com.android.tools.build:gradle:${Versions.gradle}"
     const val kotlin = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlin}"
 }
+
+object Projects {
+    const val app = ":app"
+    const val baseMvp = ":base_mvp"
+    const val baseRepository = ":base_repository"
+    const val baseNetwork = ":base_network"
+}
