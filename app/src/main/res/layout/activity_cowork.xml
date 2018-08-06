@@ -10,39 +10,52 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/activity_cowork_country_edit_text"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/country"
-            android:text="Germany" />
+            android:orientation="horizontal">
 
-        <EditText
-            android:id="@+id/activity_cowork_city_edit_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/city"
-            android:text="Berlin" />
+            <EditText
+                android:id="@+id/activity_cowork_country_edit_text"
+                android:layout_width="@dimen/view_size_large"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:hint="@string/country"
+                android:inputType="text"
+                android:text="@string/germany"
+                android:textSize="@dimen/font_small" />
 
-        <EditText
-            android:id="@+id/activity_cowork_space_edit_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/coworking_space_name" />
+            <EditText
+                android:id="@+id/activity_cowork_city_edit_text"
+                android:layout_width="@dimen/view_size_large"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:hint="@string/city"
+                android:inputType="text"
+                android:text="@string/berlin"
+                android:textSize="@dimen/font_small" />
+
+            <EditText
+                android:id="@+id/activity_cowork_space_edit_text"
+                android:layout_width="@dimen/view_size_large"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:hint="@string/coworking_space_name"
+                android:inputType="text"
+                android:textSize="@dimen/font_small" />
+        </LinearLayout>
 
         <Button
             android:id="@+id/activity_cowork_search_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Search" />
+            android:text="@string/search" />
 
-        <TextView
-            android:id="@+id/activity_cowork_text_view"
+        <fragment
+            android:id="@+id/activity_cowork_map_fragment"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scrollbars="vertical"
-            android:textSize="@dimen/font_small"
-            tools:text="text comes here" />
+            android:layout_height="wrap_content" />
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>
