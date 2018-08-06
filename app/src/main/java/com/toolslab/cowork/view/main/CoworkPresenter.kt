@@ -56,6 +56,6 @@ class CoworkPresenter @Inject constructor() :
     }
 
     @VisibleForTesting
-    fun createCredentials() = Credentials(API_USER, API_PASSWORD)
+    internal fun createCredentials() = Credentials(API_USER, API_PASSWORD)
 
 }

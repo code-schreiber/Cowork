@@ -1,9 +1,6 @@
 package com.toolslab.cowork.base_network
 
-import com.nhaarman.mockito_kotlin.mock
-import com.nhaarman.mockito_kotlin.verify
-import com.nhaarman.mockito_kotlin.verifyZeroInteractions
-import com.nhaarman.mockito_kotlin.whenever
+import com.nhaarman.mockito_kotlin.*
 import com.toolslab.cowork.base_network.model.Jwt
 import com.toolslab.cowork.base_network.storage.Credentials
 import io.reactivex.Single
@@ -17,10 +14,13 @@ import java.net.HttpURLConnection
 
 class ReauthenticateInterceptorTest {
 
+    private val user = "user"
+    private val password = "password"
     private val jwt = Jwt("a token", "", "", "", 0)
 
     private val mockChain: Interceptor.Chain = mock()
     private val mockRequest: Request = mock()
+    private val mockNewRequest: Request = mock()
     private val mockResponse: Response = mock()
     private val mockBuilder: Request.Builder = mock()
 
@@ -37,35 +37,13 @@ class ReauthenticateInterceptorTest {
         whenever(mockChain.request()).thenReturn(mockRequest)
         whenever(mockChain.proceed(mockRequest)).thenReturn(mockResponse)
         whenever(mockResponse.code()).thenReturn(HttpURLConnection.HTTP_OK)
+        whenever(mockRequest.header(ApiEndpoint.Header.AUTHORIZATION)).thenReturn("a header's token")
 
         val response = underTest.intercept(mockChain)
 
         response shouldEqual mockResponse
         verifyZeroInteractions(underTest.credentialsStorage)
         verifyZeroInteractions(underTest.coworkingMapAuthService)
-    }
-
-    @Test
-    fun intercept() {
-        val user = "user"
-        val password = "password"
-        val tokenForRequest = underTest.createTokenForRequest(jwt.token)
-
-        whenever(mockChain.request()).thenReturn(mockRequest)
-        whenever(mockChain.proceed(mockRequest)).thenReturn(mockResponse)
-        whenever(mockResponse.code()).thenReturn(HttpURLConnection.HTTP_NOT_FOUND)
-        whenever(mockResponse.request()).thenReturn(mockRequest)
-        whenever(mockRequest.newBuilder()).thenReturn(mockBuilder)
-        whenever(mockBuilder.header(ApiEndpoint.Header.AUTHORIZATION, tokenForRequest)).thenReturn(mockBuilder)
-        whenever(mockBuilder.build()).thenReturn(mockRequest)
-        whenever(underTest.credentialsStorage.getCredentials()).thenReturn(Credentials(user, password))
-        whenever(underTest.coworkingMapAuthService.getJwt(user, password)).thenReturn(Single.just(jwt))
-        whenever(underTest.credentialsStorage.getToken()).thenReturn(jwt.token)
-
-        val response = underTest.intercept(mockChain)
-
-        verify(underTest.credentialsStorage).saveToken(jwt.token)
-        response shouldEqual mockResponse
     }
 
     @Test
@@ -75,6 +53,68 @@ class ReauthenticateInterceptorTest {
         response shouldEqual null
         verifyZeroInteractions(underTest.credentialsStorage)
         verifyZeroInteractions(underTest.coworkingMapAuthService)
+    }
+
+    @Test
+    fun interceptWithAnAuthHeader() {
+        whenever(mockChain.request()).thenReturn(mockRequest)
+        whenever(mockChain.proceed(mockRequest)).thenReturn(mockResponse)
+        whenever(mockResponse.code()).thenReturn(HttpURLConnection.HTTP_NOT_FOUND)
+        whenever(mockRequest.header(ApiEndpoint.Header.AUTHORIZATION)).thenReturn("a header's token")
+        whenever(mockResponse.request()).thenReturn(mockRequest)
+
+        val response = underTest.intercept(mockChain)
+
+        response shouldEqual mockResponse
+        verifyZeroInteractions(underTest.credentialsStorage)
+        verifyZeroInteractions(underTest.coworkingMapAuthService)
+    }
+
+    @Test
+    fun addAuthHeaderWhenAlreadyAdded() {
+        whenever(mockRequest.header(ApiEndpoint.Header.AUTHORIZATION)).thenReturn("a header's token")
+
+        val request = underTest.addAuthHeader(mockRequest)
+
+        request shouldEqual mockRequest
+        verifyZeroInteractions(underTest.credentialsStorage)
+        verifyZeroInteractions(underTest.coworkingMapAuthService)
+    }
+
+    @Test
+    fun addAuthHeaderWhenNotYetAdded() {
+        val tokenForRequest = underTest.createTokenForRequest(jwt.token)
+        whenever(mockRequest.header(ApiEndpoint.Header.AUTHORIZATION)).thenReturn(null)
+        whenever(underTest.credentialsStorage.getToken()).thenReturn("a token")
+        whenever(mockRequest.newBuilder()).thenReturn(mockBuilder)
+        whenever(mockBuilder.header(ApiEndpoint.Header.AUTHORIZATION, tokenForRequest)).thenReturn(mockBuilder)
+        whenever(mockBuilder.build()).thenReturn(mockNewRequest)
+
+        val request = underTest.addAuthHeader(mockRequest)
+
+        request shouldEqual mockNewRequest
+        verify(underTest.credentialsStorage, times(2)).getToken()
+        verifyNoMoreInteractions(underTest.credentialsStorage)
+        verifyZeroInteractions(underTest.coworkingMapAuthService)
+    }
+
+    @Test
+    fun addAuthHeaderWhenNotYetAddedAndGetTokenFirst() {
+        val token = ""
+        val tokenForRequest = underTest.createTokenForRequest(token)
+        whenever(mockRequest.header(ApiEndpoint.Header.AUTHORIZATION)).thenReturn(null)
+        whenever(underTest.credentialsStorage.getToken()).thenReturn(token)
+        whenever(underTest.credentialsStorage.getCredentials()).thenReturn(Credentials(user, password))
+        whenever(underTest.coworkingMapAuthService.getJwt(user, password)).thenReturn(Single.just(jwt))
+        whenever(mockRequest.newBuilder()).thenReturn(mockBuilder)
+        whenever(mockBuilder.header(ApiEndpoint.Header.AUTHORIZATION, tokenForRequest)).thenReturn(mockBuilder)
+        whenever(mockBuilder.build()).thenReturn(mockNewRequest)
+
+        val request = underTest.addAuthHeader(mockRequest)
+
+        request shouldEqual mockNewRequest
+        verify(underTest.credentialsStorage, times(2)).getToken()
+        verify(underTest.credentialsStorage).saveToken(jwt.token)
     }
 
     @Test
