@@ -31,7 +31,9 @@ dependencies {
     implementation Dependencies.recyclerView
     implementation Dependencies.cardView
     implementation Dependencies.constraintLayout
-    implementation Dependencies.googleMaps
+    implementation(Dependencies.googleMaps) {
+        exclude group: Dependencies.googleMapsExclude
+    }
 
     implementation Dependencies.timber
     implementation Dependencies.butterknife

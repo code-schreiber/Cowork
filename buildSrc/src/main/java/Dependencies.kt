@@ -1,68 +1,70 @@
 object Versions {
-    val gradle = "3.1.3"
-    val kotlin = "1.2.51"
+    const val gradle = "3.1.3"
+    const val kotlin = "1.2.51"
 
-    val versionCode = 1
-    val versionName = "0.0.1"
+    const val versionCode = 1
+    const val versionName = "0.0.1"
 
-    val minSdkVersion = 20
-    val targetSdkVersion = 28
-    val compileSdkVersion = 28
+    const val minSdkVersion = 20
+    const val targetSdkVersion = 28
+    const val compileSdkVersion = 28
 
     // Libraries
-    val googleSupport = "27.1.1"
-    val constraintLayout = "1.1.1"
-    val googleMaps = "15.0.1"
+    const val googleSupport = "27.1.1"
+    const val constraintLayout = "1.1.1"
+    const val googleMaps = "15.0.1"
 
-    val timber = "4.7.0"
-    val butterknife = "8.8.1"
+    const val timber = "4.7.0"
+    const val butterknife = "8.8.1"
 
-    val dagger = "2.15"
+    const val dagger = "2.15"
 
-    val retrofit = "2.4.0"
-    val moshi = "1.6.0"
-    val converterMoshi = "2.4.0"
-    val loggingInterceptor = "3.6.0"
+    const val retrofit = "2.4.0"
+    const val moshi = "1.6.0"
+    const val converterMoshi = "2.4.0"
+    const val loggingInterceptor = "3.6.0"
 
-    val rxAndroid = "2.0.2"
+    const val rxAndroid = "2.0.2"
 
     // Tests
-    val mockitoKotlin = "1.5.0"
-    val kluent = "1.35"
+    const val mockitoKotlin = "1.5.0"
+    const val kluent = "1.35"
 }
 
 object Dependencies {
-    val kotlin = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${Versions.kotlin}"
+    const val kotlin = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${Versions.kotlin}"
 
-    val appCompat = "com.android.support:appcompat-v7:${Versions.googleSupport}"
-    val recyclerView = "com.android.support:recyclerview-v7:${Versions.googleSupport}"
-    val cardView = "com.android.support:cardview-v7:${Versions.googleSupport}"
-    val constraintLayout = "com.android.support.constraint:constraint-layout:${Versions.constraintLayout}"
-    val googleMaps = "com.google.android.gms:play-services-maps:${Versions.googleMaps}"
+    private const val androidSupport = "com.android.support"
+    const val appCompat = "$androidSupport:appcompat-v7:${Versions.googleSupport}"
+    const val recyclerView = "$androidSupport:recyclerview-v7:${Versions.googleSupport}"
+    const val cardView = "$androidSupport:cardview-v7:${Versions.googleSupport}"
+    const val constraintLayout = "$androidSupport.constraint:constraint-layout:${Versions.constraintLayout}"
+    const val googleMaps = "com.google.android.gms:play-services-maps:${Versions.googleMaps}"
+    const val googleMapsExclude = androidSupport
 
-    val timber = "com.jakewharton.timber:timber:${Versions.timber}"
-    val butterknife = "com.jakewharton:butterknife:${Versions.butterknife}"
-    val butterknifeCompiler = "com.jakewharton:butterknife-compiler:${Versions.butterknife}"
+    const val timber = "com.jakewharton.timber:timber:${Versions.timber}"
+    const val butterknife = "com.jakewharton:butterknife:${Versions.butterknife}"
+    const val butterknifeCompiler = "com.jakewharton:butterknife-compiler:${Versions.butterknife}"
 
-    val daggerCompiler = "com.google.dagger:dagger-compiler:${Versions.dagger}"
-    val daggerAndroid = "com.google.dagger:dagger-android:${Versions.dagger}"
-    val daggerAndroidProcessor = "com.google.dagger:dagger-android-processor:${Versions.dagger}"
-    val daggerAndroidSupport = "com.google.dagger:dagger-android-support:${Versions.dagger}"
+    const val daggerCompiler = "com.google.dagger:dagger-compiler:${Versions.dagger}"
+    const val daggerAndroid = "com.google.dagger:dagger-android:${Versions.dagger}"
+    const val daggerAndroidProcessor = "com.google.dagger:dagger-android-processor:${Versions.dagger}"
+    const val daggerAndroidSupport = "com.google.dagger:dagger-android-support:${Versions.dagger}"
 
-    val retrofit = "com.squareup.retrofit2:retrofit:${Versions.retrofit}"
-    val retrofitRx = "com.squareup.retrofit2:adapter-rxjava2:${Versions.retrofit}"
-    val moshi = "com.squareup.moshi:moshi-kotlin:${Versions.moshi}"
-    val converterMoshi = "com.squareup.retrofit2:converter-moshi:${Versions.converterMoshi}"
-    val loggingInterceptor = "com.squareup.okhttp3:logging-interceptor:${Versions.loggingInterceptor}"
+    const val retrofit = "com.squareup.retrofit2:retrofit:${Versions.retrofit}"
+    const val retrofitRx = "com.squareup.retrofit2:adapter-rxjava2:${Versions.retrofit}"
+    const val moshi = "com.squareup.moshi:moshi-kotlin:${Versions.moshi}"
+    const val converterMoshi = "com.squareup.retrofit2:converter-moshi:${Versions.converterMoshi}"
+    const val loggingInterceptor = "com.squareup.okhttp3:logging-interceptor:${Versions.loggingInterceptor}"
 
-    val rxAndroid = "io.reactivex.rxjava2:rxandroid:${Versions.rxAndroid}"
+    const val rxAndroid = "io.reactivex.rxjava2:rxandroid:${Versions.rxAndroid}"
 
     // Tests
-    val mockitoKotlin = "com.nhaarman:mockito-kotlin-kt1.1:${Versions.mockitoKotlin}"
-    val kluent = "org.amshove.kluent:kluent-android:${Versions.kluent}"
+    const val mockitoKotlin = "com.nhaarman:mockito-kotlin-kt1.1:${Versions.mockitoKotlin}"
+    const val kluent = "org.amshove.kluent:kluent-android:${Versions.kluent}"
 }
 
 object Plugins {
-    val gradle = "com.android.tools.build:gradle:${Versions.gradle}"
-    val kotlin = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlin}"
+    const val gradle = "com.android.tools.build:gradle:${Versions.gradle}"
+    const val kotlin = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlin}"
 }
