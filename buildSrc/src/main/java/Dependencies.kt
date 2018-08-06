@@ -6,8 +6,8 @@ object Versions {
     val versionName = "0.0.1"
 
     val minSdkVersion = 20
-    val targetSdkVersion = 27
-    val compileSdkVersion = 27
+    val targetSdkVersion = 28
+    val compileSdkVersion = 28
 
     // Libraries
     val googleSupport = "27.1.1"
