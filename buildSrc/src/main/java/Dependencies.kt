@@ -5,7 +5,7 @@ object Versions {
     val versionCode = 1
     val versionName = "0.0.1"
 
-    val minSdkVersion = 26
+    val minSdkVersion = 20
     val targetSdkVersion = 28
     val compileSdkVersion = 28
 
@@ -17,6 +17,11 @@ object Versions {
     val butterknife = "8.8.1"
 
     val dagger = "2.15"
+
+    val retrofit = "2.4.0"
+    val moshi = "1.6.0"
+    val converterMoshi = "2.4.0"
+    val loggingInterceptor = "3.6.0"
 
     val rxAndroid = "2.0.2"
 
@@ -41,6 +46,12 @@ object Dependencies {
     val daggerAndroid = "com.google.dagger:dagger-android:${Versions.dagger}"
     val daggerAndroidProcessor = "com.google.dagger:dagger-android-processor:${Versions.dagger}"
     val daggerAndroidSupport = "com.google.dagger:dagger-android-support:${Versions.dagger}"
+
+    val retrofit = "com.squareup.retrofit2:retrofit:${Versions.retrofit}"
+    val retrofitRx = "com.squareup.retrofit2:adapter-rxjava2:${Versions.retrofit}"
+    val moshi = "com.squareup.moshi:moshi-kotlin:${Versions.moshi}"
+    val converterMoshi = "com.squareup.retrofit2:converter-moshi:${Versions.converterMoshi}"
+    val loggingInterceptor = "com.squareup.okhttp3:logging-interceptor:${Versions.loggingInterceptor}"
 
     val rxAndroid = "io.reactivex.rxjava2:rxandroid:${Versions.rxAndroid}"
 

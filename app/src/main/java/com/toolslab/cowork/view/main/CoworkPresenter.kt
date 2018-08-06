@@ -4,10 +4,9 @@ import android.support.annotation.VisibleForTesting
 import com.toolslab.cowork.BuildConfig.API_PASSWORD
 import com.toolslab.cowork.BuildConfig.API_USER
 import com.toolslab.cowork.base_mvp.BasePresenter
-import com.toolslab.cowork.base_repository.SpaceRepository
+import com.toolslab.cowork.base_network.storage.Credentials
 import com.toolslab.cowork.base_repository.exception.NoConnectionException
 import com.toolslab.cowork.base_repository.exception.NotFoundException
-import com.toolslab.cowork.base_repository.model.Credentials
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -21,7 +20,7 @@ class CoworkPresenter @Inject constructor() :
     internal lateinit var compositeDisposable: CompositeDisposable
 
     @Inject
-    internal lateinit var spaceRepository: SpaceRepository
+    internal lateinit var coworkInteractor: CoworkInteractor
 
     override fun onBound(view: CoworkContract.View) {
         view.showMessage("Ready to search!")
@@ -37,7 +36,7 @@ class CoworkPresenter @Inject constructor() :
             return
         }
         view.showMessage("Loading")
-        compositeDisposable.add(spaceRepository.listSpaces(createCredentials(), country, city, space)
+        compositeDisposable.add(coworkInteractor.listSpaces(createCredentials(), country, city, space)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
@@ -57,6 +56,6 @@ class CoworkPresenter @Inject constructor() :
     }
 
     @VisibleForTesting
-    fun createCredentials() = Credentials(API_USER, API_PASSWORD)
+    internal fun createCredentials() = Credentials(API_USER, API_PASSWORD)
 
 }

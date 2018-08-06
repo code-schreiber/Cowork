@@ -1,13 +1,17 @@
 package com.toolslab.cowork.base_repository
 
-import com.toolslab.cowork.base_repository.exception.NoConnectionException
-import com.toolslab.cowork.base_repository.exception.RepositoryException
+import com.nhaarman.mockito_kotlin.mock
+import com.nhaarman.mockito_kotlin.whenever
+import com.toolslab.cowork.base_repository.exception.*
 import org.amshove.kluent.shouldBeInstanceOf
 import org.amshove.kluent.shouldEqual
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
+import retrofit2.HttpException
+import retrofit2.Response
 import java.io.IOException
+import java.net.HttpURLConnection.*
 import kotlin.reflect.KClass
 
 @RunWith(Parameterized::class)
@@ -20,8 +24,21 @@ class ErrorHandlerParameterizedTest(private val input: Exception, private val ex
         @Parameterized.Parameters
         fun data() = listOf(
                 arrayOf(IOException(), NoConnectionException::class),
+
+                arrayOf(httpExceptionWithCode(HTTP_NOT_FOUND), NotFoundException::class),
+                arrayOf(httpExceptionWithCode(HTTP_UNAUTHORIZED), UnauthorizedException::class),
+                arrayOf(httpExceptionWithCode(HTTP_FORBIDDEN), ForbiddenException::class),
+                arrayOf(httpExceptionWithCode(HTTP_NOT_IMPLEMENTED), RepositoryException::class),
+
                 arrayOf(Exception(), RepositoryException::class)
         )
+
+        private val mockResponse: Response<*> = mock()
+
+        private fun httpExceptionWithCode(code: Int): HttpException {
+            whenever(mockResponse.code()).thenReturn(code)
+            return HttpException(mockResponse)
+        }
     }
 
     @Test
