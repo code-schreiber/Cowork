@@ -31,22 +31,20 @@ class AuthInterceptor @Inject constructor() : Interceptor {
 
     @VisibleForTesting
     internal fun addAuthHeader(originalRequest: Request): Request {
-        if (originalRequest.header(AUTHORIZATION) == null) {
-            // No auth token in request, put it in
-            if (credentialsStorage.getToken().isEmpty()) {
-                // Get and save token first
-                val credentials = credentialsStorage.getCredentials()
-                coworkingMapAuthService.getJwt(credentials.user, credentials.password)
-                        .map { credentialsStorage.saveToken(it.token) }
-                        .blockingGet()
-            }
-            val tokenForRequest = createTokenForRequest(credentialsStorage.getToken())
-            return originalRequest.newBuilder()
-                    .header(AUTHORIZATION, tokenForRequest)
-                    .build()
+        if (originalRequest.header(AUTHORIZATION) != null) return originalRequest
+
+        // No auth token in request, put it in
+        if (credentialsStorage.getToken().isEmpty()) {
+            // Get and save token first
+            val credentials = credentialsStorage.getCredentials()
+            coworkingMapAuthService.getJwt(credentials.user, credentials.password)
+                    .map { credentialsStorage.saveToken(it.token) }
+                    .blockingGet()
         }
-        // Request already had an auth header
-        return originalRequest
+        val tokenForRequest = createTokenForRequest(credentialsStorage.getToken())
+        return originalRequest.newBuilder()
+                .header(AUTHORIZATION, tokenForRequest)
+                .build()
     }
 
     @VisibleForTesting
