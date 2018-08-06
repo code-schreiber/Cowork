@@ -12,7 +12,7 @@ import org.junit.Before
 import org.junit.Test
 import java.net.HttpURLConnection
 
-class ReauthenticateInterceptorTest {
+class AuthInterceptorTest {
 
     private val user = "user"
     private val password = "password"
@@ -24,7 +24,7 @@ class ReauthenticateInterceptorTest {
     private val mockResponse: Response = mock()
     private val mockBuilder: Request.Builder = mock()
 
-    private val underTest = ReauthenticateInterceptor()
+    private val underTest = AuthInterceptor()
 
     @Before
     fun setUp() {

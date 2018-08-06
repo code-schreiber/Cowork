@@ -2,7 +2,7 @@ package com.toolslab.cowork.base_network.di
 
 import com.squareup.moshi.Moshi
 import com.toolslab.cowork.base_network.ApiEndpoint.API_BASE_URL
-import com.toolslab.cowork.base_network.ReauthenticateInterceptor
+import com.toolslab.cowork.base_network.AuthInterceptor
 import com.toolslab.cowork.base_network.service.CoworkingMapAuthService
 import com.toolslab.cowork.base_network.service.CoworkingMapService
 import dagger.Module
@@ -34,10 +34,10 @@ class NetworkModule {
 
     @Provides
     @Named(API)
-    fun provideOkHttpClient(httpLoggingInterceptor: HttpLoggingInterceptor, reauthenticateInterceptor: ReauthenticateInterceptor) =
+    fun provideOkHttpClient(httpLoggingInterceptor: HttpLoggingInterceptor, authInterceptor: AuthInterceptor) =
             OkHttpClient.Builder()
                     .addInterceptor(httpLoggingInterceptor)
-                    .addInterceptor(reauthenticateInterceptor)
+                    .addInterceptor(authInterceptor)
                     .build()
 
     @Provides
@@ -73,7 +73,7 @@ class NetworkModule {
             Moshi.Builder().build()
 
     companion object {
-        // Avoids cyclic dependency for ReauthenticateInterceptor used in OkHttpClient
+        // Avoid cyclic dependency for AuthInterceptor used in OkHttpClient
         // See difference between provideOkHttpClient() and provideOkHttpAuthClient()
         private const val API = "API"
         private const val AUTH_API = "AUTH_API"

@@ -10,7 +10,7 @@ import okhttp3.Response
 import java.net.HttpURLConnection.HTTP_NOT_FOUND
 import javax.inject.Inject
 
-class ReauthenticateInterceptor @Inject constructor() : Interceptor {
+class AuthInterceptor @Inject constructor() : Interceptor {
 
     @Inject
     internal lateinit var credentialsStorage: CredentialsStorage
