@@ -9,6 +9,7 @@ import io.reactivex.Single
 import io.reactivex.android.plugins.RxAndroidPlugins
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.internal.schedulers.ExecutorScheduler
+import io.reactivex.plugins.RxJavaPlugins
 import org.amshove.kluent.shouldEqual
 import org.junit.Before
 import org.junit.BeforeClass
@@ -46,6 +47,7 @@ class CoworkPresenterTest {
             }
 
             RxAndroidPlugins.setInitMainThreadSchedulerHandler { immediate }
+            RxJavaPlugins.setIoSchedulerHandler { immediate }
         }
     }
 
