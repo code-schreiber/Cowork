@@ -9,6 +9,7 @@ import io.reactivex.Single
 import io.reactivex.android.plugins.RxAndroidPlugins
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.internal.schedulers.ExecutorScheduler
+import io.reactivex.plugins.RxJavaPlugins
 import org.amshove.kluent.shouldEqual
 import org.junit.Before
 import org.junit.BeforeClass
@@ -22,8 +23,8 @@ class CoworkPresenterTest {
     private val country = "a country"
     private val city = "a city"
     private val space = "a space"
-    private val space2 = Space("space2")
-    private val space1 = Space("space1")
+    private val space1 = Space("space1", "snippet1", 1.1, 1.1)
+    private val space2 = Space("space2", "snippet2", 2.2, 2.2)
     private val spaces = listOf(space1, space2)
 
     private val mockCompositeDisposable: CompositeDisposable = mock()
@@ -46,6 +47,7 @@ class CoworkPresenterTest {
             }
 
             RxAndroidPlugins.setInitMainThreadSchedulerHandler { immediate }
+            RxJavaPlugins.setIoSchedulerHandler { immediate }
         }
     }
 
@@ -58,7 +60,7 @@ class CoworkPresenterTest {
 
     @Test
     fun onBound() {
-        verify(mockView).showMessage(any())
+        verify(mockView).getMapAsync()
     }
 
     @Test
@@ -75,8 +77,21 @@ class CoworkPresenterTest {
 
         underTest.listSpaces(country, city, space)
 
-        verify(mockView, times(2)).showMessage(any())
+        underTest.spaces shouldEqual spaces
         verify(mockCompositeDisposable).add(any())
+    }
+
+    @Test
+    fun listSpacesWithMapReady() {
+        val credentials = underTest.createCredentials()
+        underTest.isMapReady = true
+        whenever(mockCoworkInteractor.listSpaces(credentials, country, city, space)).thenReturn(Single.just(spaces))
+
+        underTest.listSpaces(country, city, space)
+
+        underTest.spaces shouldEqual spaces
+        verify(mockCompositeDisposable).add(any())
+        verifyOnMapReady()
     }
 
     @Test
@@ -86,7 +101,7 @@ class CoworkPresenterTest {
 
         underTest.listSpaces(country, city, space)
 
-        verify(mockView, times(2)).showMessage(any())
+        verify(mockView).showMessage(any())
         verify(mockCompositeDisposable).add(any())
     }
 
@@ -94,10 +109,34 @@ class CoworkPresenterTest {
     fun listSpacesWithoutCountry() {
         underTest.listSpaces("", "", "")
 
-        verify(mockView, times(2)).showMessage(any())
+        verify(mockView).getMapAsync()
+        verify(mockView).showMessage(any())
         verifyNoMoreInteractions(mockView)
         verifyZeroInteractions(mockCoworkInteractor)
         verifyZeroInteractions(mockCompositeDisposable)
+    }
+
+    @Test
+    fun onMapReady() {
+        underTest.isMapReady shouldEqual false
+        underTest.spaces = spaces
+
+        underTest.onMapReady()
+
+        verifyOnMapReady()
+    }
+
+    @Test
+    fun onMapReadyWithNoSpaces() {
+        underTest.isMapReady shouldEqual false
+        underTest.spaces.isEmpty() shouldEqual true
+
+        underTest.onMapReady()
+
+        underTest.isMapReady shouldEqual true
+
+        verify(mockView).getMapAsync()
+        verifyNoMoreInteractions(mockView)
     }
 
     @Test
@@ -106,4 +145,12 @@ class CoworkPresenterTest {
 
         credentials shouldEqual Credentials(BuildConfig.API_USER, BuildConfig.API_PASSWORD)
     }
+
+    private fun verifyOnMapReady() {
+        underTest.isMapReady shouldEqual true
+        verify(mockView).addMapMarker(space1)
+        verify(mockView).addMapMarker(space2)
+        verify(mockView).moveCamera(space1)
+    }
+
 }

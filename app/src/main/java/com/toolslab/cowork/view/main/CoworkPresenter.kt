@@ -7,6 +7,7 @@ import com.toolslab.cowork.base_mvp.BasePresenter
 import com.toolslab.cowork.base_network.storage.Credentials
 import com.toolslab.cowork.base_repository.exception.NoConnectionException
 import com.toolslab.cowork.base_repository.exception.NotFoundException
+import com.toolslab.cowork.base_repository.model.Space
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -22,8 +23,14 @@ class CoworkPresenter @Inject constructor() :
     @Inject
     internal lateinit var coworkInteractor: CoworkInteractor
 
+    @VisibleForTesting
+    internal var spaces: List<Space> = emptyList()
+
+    @VisibleForTesting
+    internal var isMapReady = false
+
     override fun onBound(view: CoworkContract.View) {
-        view.showMessage("Ready to search!")
+        view.getMapAsync()
     }
 
     override fun onUnbound(view: CoworkContract.View) {
@@ -35,13 +42,16 @@ class CoworkPresenter @Inject constructor() :
             view.showMessage("Give at least a country")
             return
         }
-        view.showMessage("Loading")
         compositeDisposable.add(coworkInteractor.listSpaces(createCredentials(), country, city, space)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         {
-                            view.showMessage("${it.size} spaces found:\n $it")
+                            Timber.d("${it.size} spaces found:\n $it")
+                            spaces = it
+                            if (isMapReady) {
+                                onMapReady()
+                            }
                         },
                         {
                             Timber.e(it)
@@ -55,7 +65,18 @@ class CoworkPresenter @Inject constructor() :
         )
     }
 
+    override fun onMapReady() {
+        isMapReady = true
+        // Add a markers and move the camera
+        if (spaces.isNotEmpty()) {
+            spaces.forEach {
+                view.addMapMarker(it)
+            }
+            view.moveCamera(spaces[0]) // TODO choose where to move to
+        }
+    }
+
     @VisibleForTesting
-    fun createCredentials() = Credentials(API_USER, API_PASSWORD)
+    internal fun createCredentials() = Credentials(API_USER, API_PASSWORD)
 
 }
