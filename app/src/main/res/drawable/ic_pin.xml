@@ -6,9 +6,9 @@
 
     <group
         android:pivotX="12"
-        android:pivotY="-3"
-        android:scaleX="0.8"
-        android:scaleY="0.8">
+        android:pivotY="-10"
+        android:scaleX="0.85"
+        android:scaleY="0.85">
 
         <path
             android:fillColor="#795548"
@@ -17,9 +17,9 @@
 
     <group
         android:pivotX="12"
-        android:pivotY="30"
-        android:scaleX="0.6"
-        android:scaleY="0.6">
+        android:pivotY="70"
+        android:scaleX="0.85"
+        android:scaleY="0.85">
 
         <path
             android:fillColor="#795548"
