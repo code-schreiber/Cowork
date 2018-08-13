@@ -17,7 +17,7 @@ interface CoworkContract {
 
         fun addMapMarker(space: Space)
 
-        fun moveCamera(space: Space)
+        fun moveCamera(latitude: Double, longitude: Double)
     }
 
 }

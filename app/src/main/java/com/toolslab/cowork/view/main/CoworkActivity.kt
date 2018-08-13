@@ -61,11 +61,11 @@ class CoworkActivity : BaseActivity(), CoworkContract.View, OnMapReadyCallback {
     }
 
     override fun addMapMarker(space: Space) {
-        mapOperations.addMarker(space.title, space.snippet, space.lat, space.lng)
+        mapOperations.addMarker(space.title, space.snippet, space.latitude, space.longitude)
     }
 
-    override fun moveCamera(space: Space) {
-        mapOperations.moveCamera(space.lat, space.lng)
+    override fun moveCamera(latitude: Double, longitude: Double) {
+        mapOperations.moveCamera(latitude, longitude)
     }
 
     @OnClick(R.id.activity_cowork_search_button)

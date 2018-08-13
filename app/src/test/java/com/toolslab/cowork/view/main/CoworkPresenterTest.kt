@@ -4,6 +4,7 @@ import com.nhaarman.mockito_kotlin.*
 import com.toolslab.cowork.BuildConfig
 import com.toolslab.cowork.base_network.storage.Credentials
 import com.toolslab.cowork.base_repository.model.Space
+import com.toolslab.cowork.util.median
 import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.android.plugins.RxAndroidPlugins
@@ -23,8 +24,15 @@ class CoworkPresenterTest {
     private val country = "a country"
     private val city = "a city"
     private val space = "a space"
-    private val space1 = Space("space1", "snippet1", 1.1, 1.1)
-    private val space2 = Space("space2", "snippet2", 2.2, 2.2)
+    private val latitude1 = 1.1
+    private val latitude2 = 2.2
+    private val longitude1 = 1.13
+    private val longitude2 = 2.24
+    private val latitudeMedian = listOf(latitude1, latitude2).median()
+    private val longitudeMedian = listOf(longitude1, longitude2).median()
+    private val space1 = Space("space1", "snippet1", latitude1, longitude1)
+
+    private val space2 = Space("space2", "snippet2", latitude2, longitude2)
     private val spaces = listOf(space1, space2)
 
     private val mockCompositeDisposable: CompositeDisposable = mock()
@@ -140,6 +148,13 @@ class CoworkPresenterTest {
     }
 
     @Test
+    fun moveCamera() {
+        underTest.moveCamera(spaces)
+
+        verify(mockView).moveCamera(latitudeMedian, longitudeMedian)
+    }
+
+    @Test
     fun createCredentials() {
         val credentials = underTest.createCredentials()
 
@@ -150,7 +165,7 @@ class CoworkPresenterTest {
         underTest.isMapReady shouldEqual true
         verify(mockView).addMapMarker(space1)
         verify(mockView).addMapMarker(space2)
-        verify(mockView).moveCamera(space1)
+        verify(mockView).moveCamera(latitudeMedian, longitudeMedian)
     }
 
 }

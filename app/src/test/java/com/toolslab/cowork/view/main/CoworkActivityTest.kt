@@ -14,9 +14,9 @@ class CoworkActivityTest {
     private val country = "a country"
     private val city = "a city"
     private val space = "a space"
-    private val space1 = Space("space1", "snippet1", 1.1, 1.1)
-    private val space2 = Space("space2", "snippet2", 2.2, 2.2)
-    private val spaces = listOf(space1, space2)
+    private val latitude = 1.1
+    private val longitude = 1.13
+    private val space1 = Space("space1", "snippet1", latitude, longitude)
 
     private val mockCountryEditable: Editable = mock()
     private val mockCityEditable: Editable = mock()
@@ -50,14 +50,14 @@ class CoworkActivityTest {
     fun addMapMarker() {
         underTest.addMapMarker(space1)
 
-        verify(underTest.mapOperations).addMarker(space1.title, space1.snippet, space1.lat, space1.lng)
+        verify(underTest.mapOperations).addMarker(space1.title, space1.snippet, space1.latitude, space1.longitude)
     }
 
     @Test
     fun moveCamera() {
-        underTest.moveCamera(space1)
+        underTest.moveCamera(latitude, longitude)
 
-        verify(underTest.mapOperations).moveCamera(space1.lat, space1.lng)
+        verify(underTest.mapOperations).moveCamera(latitude, longitude)
     }
 
     @Test

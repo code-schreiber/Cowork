@@ -8,6 +8,7 @@ import com.toolslab.cowork.base_network.storage.Credentials
 import com.toolslab.cowork.base_repository.exception.NoConnectionException
 import com.toolslab.cowork.base_repository.exception.NotFoundException
 import com.toolslab.cowork.base_repository.model.Space
+import com.toolslab.cowork.util.median
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -72,8 +73,16 @@ class CoworkPresenter @Inject constructor() :
             spaces.forEach {
                 view.addMapMarker(it)
             }
-            view.moveCamera(spaces[0]) // TODO choose where to move to
+            moveCamera(spaces)
         }
+    }
+
+    @VisibleForTesting
+    internal fun moveCamera(spaces: List<Space>) {
+        // Zoom into map close enough to show all spaces
+        val latitudes = spaces.map { it.latitude }
+        val longitudes = spaces.map { it.longitude }
+        view.moveCamera(latitudes.median(), longitudes.median())
     }
 
     @VisibleForTesting
