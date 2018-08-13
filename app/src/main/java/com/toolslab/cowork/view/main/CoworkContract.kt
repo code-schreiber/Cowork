@@ -19,6 +19,8 @@ interface CoworkContract {
 
         fun moveCamera(latitude: Double, longitude: Double)
 
+        fun showInputMissesCountryError()
+
         fun showNoPlacesFoundError()
     }
 

@@ -149,7 +149,7 @@ class CoworkPresenterTest {
         underTest.listSpaces("", "", "")
 
         verify(mockView).getMapAsync()
-        verify(mockView).showMessage(any())
+        verify(mockView).showInputMissesCountryError()
         verifyNoMoreInteractions(mockView)
         verifyZeroInteractions(mockCoworkInteractor)
         verifyZeroInteractions(mockCompositeDisposable)

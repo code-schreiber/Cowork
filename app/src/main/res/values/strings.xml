@@ -9,6 +9,7 @@
     <string name="berlin">Berlin</string>
     <string name="search">Search</string>
 
+    <string name="error_input_misses_country">Country is needed for searching</string>
     <string name="error_no_places_found">No places found</string>
     <string name="error_no_connection">No Internet Connection</string>
     <string name="error_default">An unknown error occurred</string>

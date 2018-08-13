@@ -5,6 +5,7 @@ import com.google.android.gms.maps.GoogleMap
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.verify
 import com.nhaarman.mockito_kotlin.whenever
+import com.toolslab.cowork.R
 import com.toolslab.cowork.base_repository.model.Space
 import org.junit.Before
 import org.junit.Test
@@ -32,6 +33,7 @@ class CoworkActivityTest {
         underTest.spaceEditText = mock()
         underTest.presenter = mock()
         underTest.mapOperations = mock()
+        underTest.uiMessenger = mock()
 
         whenever(underTest.countryEditText.text).thenReturn(mockCountryEditable)
         whenever(underTest.cityEditText.text).thenReturn(mockCityEditable)
@@ -58,6 +60,20 @@ class CoworkActivityTest {
         underTest.moveCamera(latitude, longitude)
 
         verify(underTest.mapOperations).moveCamera(latitude, longitude)
+    }
+
+    @Test
+    fun showInputMissesCountryError() {
+        underTest.showInputMissesCountryError()
+
+        verify(underTest.uiMessenger).showMessage(underTest, R.string.error_input_misses_country)
+    }
+
+    @Test
+    fun showNoPlacesFoundError() {
+        underTest.showNoPlacesFoundError()
+
+        verify(underTest.uiMessenger).showMessage(underTest, R.string.error_no_places_found)
     }
 
     @Test

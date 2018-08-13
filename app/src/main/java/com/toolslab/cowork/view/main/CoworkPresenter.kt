@@ -40,7 +40,7 @@ class CoworkPresenter @Inject constructor() :
 
     override fun listSpaces(country: String, city: String, space: String) {
         if (country.isEmpty()) {
-            view.showMessage("Give at least a country")
+            view.showInputMissesCountryError()
             return
         }
         compositeDisposable.add(coworkInteractor.listSpaces(createCredentials(), country, city, space)

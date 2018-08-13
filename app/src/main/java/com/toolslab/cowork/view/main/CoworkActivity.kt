@@ -68,6 +68,14 @@ class CoworkActivity : BaseActivity(), CoworkContract.View, OnMapReadyCallback {
         mapOperations.moveCamera(latitude, longitude)
     }
 
+    override fun showInputMissesCountryError() {
+        showMessage(R.string.error_input_misses_country)
+    }
+
+    override fun showNoPlacesFoundError() {
+        showMessage(R.string.error_no_places_found)
+    }
+
     @OnClick(R.id.activity_cowork_search_button)
     internal fun onSearchClicked() {
         val country = countryEditText.text.toString()
