@@ -3,6 +3,8 @@ package com.toolslab.cowork.view.main
 import com.nhaarman.mockito_kotlin.*
 import com.toolslab.cowork.BuildConfig
 import com.toolslab.cowork.base_network.storage.Credentials
+import com.toolslab.cowork.base_repository.exception.NoConnectionException
+import com.toolslab.cowork.base_repository.exception.NotFoundException
 import com.toolslab.cowork.base_repository.model.Space
 import com.toolslab.cowork.util.median
 import io.reactivex.Scheduler
@@ -21,6 +23,7 @@ import java.util.concurrent.TimeUnit
 class CoworkPresenterTest {
 
     private val errorMessage = "an error message"
+    private val error = Exception(errorMessage)
     private val country = "a country"
     private val city = "a city"
     private val space = "a space"
@@ -103,14 +106,42 @@ class CoworkPresenterTest {
     }
 
     @Test
-    fun listSpacesWithError() {
+    fun listSpacesWithNoPlacesFoundError() {
         val credentials = underTest.createCredentials()
-        whenever(mockCoworkInteractor.listSpaces(credentials, country, city, space)).thenReturn(Single.error(Exception(errorMessage)))
+        whenever(mockCoworkInteractor.listSpaces(credentials, country, city, space)).thenReturn(Single.error(NotFoundException(error)))
 
         underTest.listSpaces(country, city, space)
 
-        verify(mockView).showMessage(any())
+        verify(mockView).getMapAsync()
+        verify(mockView).showNoPlacesFoundError()
         verify(mockCompositeDisposable).add(any())
+        verifyNoMoreInteractions(mockView)
+    }
+
+    @Test
+    fun listSpacesWithNoConnectionError() {
+        val credentials = underTest.createCredentials()
+        whenever(mockCoworkInteractor.listSpaces(credentials, country, city, space)).thenReturn(Single.error(NoConnectionException(error)))
+
+        underTest.listSpaces(country, city, space)
+
+        verify(mockView).getMapAsync()
+        verify(mockView).showNoConnectionError()
+        verify(mockCompositeDisposable).add(any())
+        verifyNoMoreInteractions(mockView)
+    }
+
+    @Test
+    fun listSpacesWithDefaultError() {
+        val credentials = underTest.createCredentials()
+        whenever(mockCoworkInteractor.listSpaces(credentials, country, city, space)).thenReturn(Single.error(error))
+
+        underTest.listSpaces(country, city, space)
+
+        verify(mockView).getMapAsync()
+        verify(mockView).showDefaultError()
+        verify(mockCompositeDisposable).add(any())
+        verifyNoMoreInteractions(mockView)
     }
 
     @Test

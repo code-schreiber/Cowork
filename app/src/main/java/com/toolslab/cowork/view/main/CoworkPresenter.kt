@@ -57,9 +57,9 @@ class CoworkPresenter @Inject constructor() :
                         {
                             Timber.e(it)
                             when (it) {
-                                is NotFoundException -> view.showMessage("No places found") // TODO extract strings
-                                is NoConnectionException -> view.showMessage("No Internet Connection")
-                                else -> view.showMessage(it.message ?: "Unknown error occurred")
+                                is NotFoundException -> view.showNoPlacesFoundError()
+                                is NoConnectionException -> view.showNoConnectionError()
+                                else -> view.showDefaultError()
                             }
                         }
                 )
