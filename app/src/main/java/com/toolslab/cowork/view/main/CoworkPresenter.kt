@@ -82,6 +82,7 @@ class CoworkPresenter @Inject constructor() :
         // Zoom into map close enough to show all spaces
         val latitudes = spaces.map { it.latitude }
         val longitudes = spaces.map { it.longitude }
+        // FIXME with lots of spaces the median way lands on a place that does'nt show any :(
         view.moveCamera(latitudes.median(), longitudes.median())
     }
 

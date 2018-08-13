@@ -6,14 +6,15 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.toolslab.cowork.R
+import com.toolslab.cowork.util.VectorDrawableUtil
 import javax.inject.Inject
 
 class MapOperations @Inject constructor() {
 
-    private val zoom = 11.5F
+    private val zoom = 11F
 
     @Inject
-    internal lateinit var resourceOperations: ResourceOperations
+    internal lateinit var vectorDrawableUtil: VectorDrawableUtil
 
     internal lateinit var googleMap: GoogleMap
 
@@ -21,13 +22,12 @@ class MapOperations @Inject constructor() {
         googleMap.addMarker(MarkerOptions()
                 .title(title)
                 .snippet(snippet)
-                .icon(BitmapDescriptorFactory.fromBitmap(resourceOperations.resourceAsBitmap(R.drawable.ic_pin)))
+                .icon(BitmapDescriptorFactory.fromBitmap(vectorDrawableUtil.resourceAsBitmap(R.drawable.ic_pin)))
                 .position(LatLng(latitude, longitude)))
     }
 
     fun moveCamera(latitude: Double, longitude: Double) {
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(latitude, longitude), zoom))
-
+        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(LatLng(latitude, longitude), zoom))
     }
 
 }
