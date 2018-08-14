@@ -15,6 +15,8 @@ interface CoworkContract {
     interface View : BaseView {
         fun getMapAsync()
 
+        fun showSearch()
+
         fun addMapMarker(space: Space)
 
         fun moveCamera(latitude: Double, longitude: Double)

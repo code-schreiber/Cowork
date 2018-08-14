@@ -1,6 +1,7 @@
 package com.toolslab.cowork.view.main
 
 import android.text.Editable
+import android.view.View.VISIBLE
 import com.google.android.gms.maps.GoogleMap
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.verify
@@ -28,6 +29,7 @@ class CoworkActivityTest {
 
     @Before
     fun setUp() {
+        underTest.parentLayout = mock()
         underTest.countryEditText = mock()
         underTest.cityEditText = mock()
         underTest.spaceEditText = mock()
@@ -46,6 +48,13 @@ class CoworkActivityTest {
 
         verify(underTest.mapOperations).googleMap = googleMap
         verify(underTest.presenter).onMapReady()
+    }
+
+    @Test
+    fun showSearch() {
+        underTest.showSearch()
+
+        verify(underTest.parentLayout).visibility = VISIBLE
     }
 
     @Test

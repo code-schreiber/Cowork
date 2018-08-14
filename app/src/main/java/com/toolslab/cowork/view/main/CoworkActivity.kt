@@ -1,6 +1,8 @@
 package com.toolslab.cowork.view.main
 
 import android.os.Bundle
+import android.view.View
+import android.view.View.VISIBLE
 import android.widget.EditText
 import butterknife.BindView
 import butterknife.ButterKnife
@@ -15,6 +17,9 @@ import com.toolslab.cowork.view.base.BaseActivity
 import javax.inject.Inject
 
 class CoworkActivity : BaseActivity(), CoworkContract.View, OnMapReadyCallback {
+
+    @BindView(R.id.activity_cowork_layout)
+    internal lateinit var parentLayout: View
 
     @BindView(R.id.activity_cowork_country_edit_text)
     internal lateinit var countryEditText: EditText
@@ -58,6 +63,10 @@ class CoworkActivity : BaseActivity(), CoworkContract.View, OnMapReadyCallback {
     override fun onMapReady(googleMap: GoogleMap) {
         mapOperations.googleMap = googleMap
         presenter.onMapReady()
+    }
+
+    override fun showSearch() {
+        parentLayout.visibility = VISIBLE
     }
 
     override fun addMapMarker(space: Space) {

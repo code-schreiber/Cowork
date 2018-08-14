@@ -24,12 +24,6 @@ class CoworkPresenter @Inject constructor() :
     @Inject
     internal lateinit var coworkInteractor: CoworkInteractor
 
-    @VisibleForTesting
-    internal var spaces: List<Space> = emptyList()
-
-    @VisibleForTesting
-    internal var isMapReady = false
-
     override fun onBound(view: CoworkContract.View) {
         view.getMapAsync()
     }
@@ -49,10 +43,11 @@ class CoworkPresenter @Inject constructor() :
                 .subscribe(
                         {
                             Timber.d("${it.size} spaces found:\n $it")
-                            spaces = it
-                            if (isMapReady) {
-                                onMapReady()
+                            // Add a markers and move the camera
+                            it.forEach {
+                                view.addMapMarker(it)
                             }
+                            moveCamera(it)
                         },
                         {
                             Timber.e(it)
@@ -67,14 +62,7 @@ class CoworkPresenter @Inject constructor() :
     }
 
     override fun onMapReady() {
-        isMapReady = true
-        // Add a markers and move the camera
-        if (spaces.isNotEmpty()) {
-            spaces.forEach {
-                view.addMapMarker(it)
-            }
-            moveCamera(spaces)
-        }
+        view.showSearch()
     }
 
     @VisibleForTesting

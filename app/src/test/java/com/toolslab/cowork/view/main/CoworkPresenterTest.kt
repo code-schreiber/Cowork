@@ -88,21 +88,10 @@ class CoworkPresenterTest {
 
         underTest.listSpaces(country, city, space)
 
-        underTest.spaces shouldEqual spaces
+        verify(mockView).addMapMarker(space1)
+        verify(mockView).addMapMarker(space2)
+        verify(mockView).moveCamera(latitudeMedian, longitudeMedian)
         verify(mockCompositeDisposable).add(any())
-    }
-
-    @Test
-    fun listSpacesWithMapReady() {
-        val credentials = underTest.createCredentials()
-        underTest.isMapReady = true
-        whenever(mockCoworkInteractor.listSpaces(credentials, country, city, space)).thenReturn(Single.just(spaces))
-
-        underTest.listSpaces(country, city, space)
-
-        underTest.spaces shouldEqual spaces
-        verify(mockCompositeDisposable).add(any())
-        verifyOnMapReady()
     }
 
     @Test
@@ -157,25 +146,9 @@ class CoworkPresenterTest {
 
     @Test
     fun onMapReady() {
-        underTest.isMapReady shouldEqual false
-        underTest.spaces = spaces
-
         underTest.onMapReady()
 
-        verifyOnMapReady()
-    }
-
-    @Test
-    fun onMapReadyWithNoSpaces() {
-        underTest.isMapReady shouldEqual false
-        underTest.spaces.isEmpty() shouldEqual true
-
-        underTest.onMapReady()
-
-        underTest.isMapReady shouldEqual true
-
-        verify(mockView).getMapAsync()
-        verifyNoMoreInteractions(mockView)
+        verify(mockView).showSearch()
     }
 
     @Test
@@ -190,13 +163,6 @@ class CoworkPresenterTest {
         val credentials = underTest.createCredentials()
 
         credentials shouldEqual Credentials(BuildConfig.API_USER, BuildConfig.API_PASSWORD)
-    }
-
-    private fun verifyOnMapReady() {
-        underTest.isMapReady shouldEqual true
-        verify(mockView).addMapMarker(space1)
-        verify(mockView).addMapMarker(space2)
-        verify(mockView).moveCamera(latitudeMedian, longitudeMedian)
     }
 
 }
