@@ -35,11 +35,15 @@ class AuthInterceptor @Inject constructor() : Interceptor {
 
         // No auth token in request, put it in
         if (credentialsStorage.getToken().isEmpty()) {
-            // Get and save token first
-            val credentials = credentialsStorage.getCredentials()
-            coworkingMapAuthService.getJwt(credentials.user, credentials.password)
-                    .map { credentialsStorage.saveToken(it.token) }
-                    .blockingGet()
+            synchronized(this) {
+                if (credentialsStorage.getToken().isEmpty()) { // Check again, another thread might already have gotten a token
+                    // Get and save token first
+                    val credentials = credentialsStorage.getCredentials()
+                    coworkingMapAuthService.getJwt(credentials.user, credentials.password)
+                            .map { credentialsStorage.saveToken(it.token) }
+                            .blockingGet()
+                }
+            }
         }
         val tokenForRequest = createTokenForRequest(credentialsStorage.getToken())
         return originalRequest.newBuilder()
@@ -51,4 +55,3 @@ class AuthInterceptor @Inject constructor() : Interceptor {
     internal fun createTokenForRequest(token: String) = "Bearer $token"
 
 }
-
