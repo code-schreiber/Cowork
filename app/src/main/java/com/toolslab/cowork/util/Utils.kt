@@ -1,6 +1,8 @@
 package com.toolslab.cowork.util
 
 internal fun List<Double>.median(): Double {
+    if (this.isEmpty()) return 0.0
+
     val sorted = this.sorted()
     val middleIndex = sorted.size / 2
     val middle = sorted[middleIndex]
