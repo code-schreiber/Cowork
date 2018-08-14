@@ -8,7 +8,8 @@ import com.toolslab.cowork.base_network.storage.Credentials
 import com.toolslab.cowork.base_repository.exception.NoConnectionException
 import com.toolslab.cowork.base_repository.exception.NotFoundException
 import com.toolslab.cowork.base_repository.model.Space
-import com.toolslab.cowork.util.median
+import com.toolslab.cowork.util.max
+import com.toolslab.cowork.util.min
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -42,7 +43,7 @@ class CoworkPresenter @Inject constructor() :
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         {
-                            Timber.d("${it.size} spaces found:\n $it")
+                            Timber.d("${it.size} spaces found for $country, $city, $space")
                             // Add a markers and move the camera
                             it.forEach {
                                 view.addMapMarker(it)
@@ -70,8 +71,7 @@ class CoworkPresenter @Inject constructor() :
         // Zoom into map close enough to show all spaces
         val latitudes = spaces.map { it.latitude }
         val longitudes = spaces.map { it.longitude }
-        // FIXME with lots of spaces the median way lands on a place that does'nt show any :(
-        view.moveCamera(latitudes.median(), longitudes.median())
+        view.moveCamera(latitudes.min(), longitudes.min(), latitudes.max(), longitudes.max())
     }
 
     @VisibleForTesting

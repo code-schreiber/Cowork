@@ -14,3 +14,13 @@ internal fun List<Double>.median(): Double {
     }
 }
 
+internal fun List<Double>.min(): Double {
+    if (this.isEmpty()) return 0.0
+    return this.min()!!
+}
+
+internal fun List<Double>.max(): Double {
+    if (this.isEmpty()) return 0.0
+    return this.max()!!
+}
+

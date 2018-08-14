@@ -4,14 +4,13 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.MarkerOptions
 import com.toolslab.cowork.R
 import com.toolslab.cowork.util.VectorDrawableUtil
 import javax.inject.Inject
 
 class MapOperations @Inject constructor() {
-
-    private val zoom = 11F
 
     @Inject
     internal lateinit var vectorDrawableUtil: VectorDrawableUtil
@@ -26,8 +25,9 @@ class MapOperations @Inject constructor() {
                 .position(LatLng(latitude, longitude)))
     }
 
-    fun moveCamera(latitude: Double, longitude: Double) {
-        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(LatLng(latitude, longitude), zoom))
+    fun moveCamera(minLatitude: Double, minLongitude: Double, maxLatitude: Double, maxLongitude: Double) {
+        val bounds = LatLngBounds(LatLng(minLatitude, minLongitude), LatLng(maxLatitude, maxLongitude))
+        googleMap.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, 0))
     }
 
 }

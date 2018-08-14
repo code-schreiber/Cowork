@@ -16,9 +16,11 @@ class CoworkActivityTest {
     private val country = "a country"
     private val city = "a city"
     private val space = "a space"
-    private val latitude = 1.1
-    private val longitude = 1.13
-    private val space1 = Space("space1", "snippet1", latitude, longitude)
+    private val minLatitude = 0.0
+    private val minLongitude = 1.13
+    private val maxLatitude = 1.1
+    private val maxLongitude = 2.34
+    private val space1 = Space("space1", "snippet1", minLatitude, minLongitude)
 
     private val mockCountryEditable: Editable = mock()
     private val mockCityEditable: Editable = mock()
@@ -66,9 +68,9 @@ class CoworkActivityTest {
 
     @Test
     fun moveCamera() {
-        underTest.moveCamera(latitude, longitude)
+        underTest.moveCamera(minLatitude, minLongitude, maxLatitude, maxLongitude)
 
-        verify(underTest.mapOperations).moveCamera(latitude, longitude)
+        verify(underTest.mapOperations).moveCamera(minLatitude, minLongitude, maxLatitude, maxLongitude)
     }
 
     @Test

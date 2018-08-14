@@ -6,7 +6,8 @@ import com.toolslab.cowork.base_network.storage.Credentials
 import com.toolslab.cowork.base_repository.exception.NoConnectionException
 import com.toolslab.cowork.base_repository.exception.NotFoundException
 import com.toolslab.cowork.base_repository.model.Space
-import com.toolslab.cowork.util.median
+import com.toolslab.cowork.util.max
+import com.toolslab.cowork.util.min
 import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.android.plugins.RxAndroidPlugins
@@ -31,8 +32,10 @@ class CoworkPresenterTest {
     private val latitude2 = 2.2
     private val longitude1 = 1.13
     private val longitude2 = 2.24
-    private val latitudeMedian = listOf(latitude1, latitude2).median()
-    private val longitudeMedian = listOf(longitude1, longitude2).median()
+    private val minLatitude = listOf(latitude1, latitude2).min()
+    private val minLongitude = listOf(longitude1, longitude2).min()
+    private val maxLatitude = listOf(latitude1, latitude2).max()
+    private val maxLongitude = listOf(longitude1, longitude2).max()
     private val space1 = Space("space1", "snippet1", latitude1, longitude1)
 
     private val space2 = Space("space2", "snippet2", latitude2, longitude2)
@@ -90,7 +93,7 @@ class CoworkPresenterTest {
 
         verify(mockView).addMapMarker(space1)
         verify(mockView).addMapMarker(space2)
-        verify(mockView).moveCamera(latitudeMedian, longitudeMedian)
+        verify(mockView).moveCamera(minLatitude, minLongitude, maxLatitude, maxLongitude)
         verify(mockCompositeDisposable).add(any())
     }
 
@@ -155,7 +158,7 @@ class CoworkPresenterTest {
     fun moveCamera() {
         underTest.moveCamera(spaces)
 
-        verify(mockView).moveCamera(latitudeMedian, longitudeMedian)
+        verify(mockView).moveCamera(minLatitude, minLongitude, maxLatitude, maxLongitude)
     }
 
     @Test

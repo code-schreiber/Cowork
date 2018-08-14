@@ -73,8 +73,8 @@ class CoworkActivity : BaseActivity(), CoworkContract.View, OnMapReadyCallback {
         mapOperations.addMarker(space.title, space.snippet, space.latitude, space.longitude)
     }
 
-    override fun moveCamera(latitude: Double, longitude: Double) {
-        mapOperations.moveCamera(latitude, longitude)
+    override fun moveCamera(minLatitude: Double, minLongitude: Double, maxLatitude: Double, maxLongitude: Double) {
+        mapOperations.moveCamera(minLatitude, minLongitude, maxLatitude, maxLongitude)
     }
 
     override fun showInputMissesCountryError() {

@@ -20,4 +20,16 @@ class UtilsKtTest {
         emptyList<Double>().median() shouldEqual 0.0
     }
 
+    @Test
+    fun min() {
+        listOf(1.0, 2.0, 1000.0).min() shouldEqual 1.0
+        emptyList<Double>().min() shouldEqual 0.0
+    }
+
+    @Test
+    fun max() {
+        listOf(1.0, 2.0, 1000.0).max() shouldEqual 1000.0
+        emptyList<Double>().max() shouldEqual 0.0
+    }
+
 }

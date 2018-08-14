@@ -19,7 +19,7 @@ interface CoworkContract {
 
         fun addMapMarker(space: Space)
 
-        fun moveCamera(latitude: Double, longitude: Double)
+        fun moveCamera(minLatitude: Double, minLongitude: Double, maxLatitude: Double, maxLongitude: Double)
 
         fun showInputMissesCountryError()
 
