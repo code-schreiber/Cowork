@@ -1,5 +1,8 @@
 [![Build Status](https://travis-ci.org/code-schreiber/Cowork.svg?branch=master)](https://travis-ci.org/code-schreiber/Cowork) Master    
 [![Build Status](https://travis-ci.org/code-schreiber/Cowork.svg?branch=develop)](https://travis-ci.org/code-schreiber/Cowork) Develop  
+[![Kotlin](https://img.shields.io/badge/Kotlin-Yes%20Please-BB42B0.svg)]()
+[![Author](https://img.shields.io/badge/Author-code--schreiber-1A237E.svg)](https://github.com/code-schreiber)
+[![Android API](https://img.shields.io/badge/Android_API-20%2B-A4C639.svg)](https://github.com/code-schreiber/Cowork/blob/master/buildSrc/src/main/java/Dependencies.kt)
 [![Open Source Love svg3](https://badges.frapsoft.com/os/v3/open-source.svg?v=103)](https://github.com/ellerbrock/open-source-badges/)
 
 <p align="center">
