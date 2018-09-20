@@ -7,6 +7,6 @@ import dagger.Provides
 class CoworkModule {
 
     @Provides
-    fun providePresenter(coworkPresenter: CoworkPresenter): CoworkContract.Presenter = coworkPresenter
+    internal fun providePresenter(coworkPresenter: CoworkPresenter): CoworkContract.Presenter = coworkPresenter
 
 }

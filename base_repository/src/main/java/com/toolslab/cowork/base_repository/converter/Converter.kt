@@ -1,5 +1,5 @@
 package com.toolslab.cowork.base_repository.converter
 
-interface ModelConverter<S, M> {
+interface Converter<S, M> {
     fun convert(source: S): M
 }

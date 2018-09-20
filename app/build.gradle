@@ -22,8 +22,8 @@ android {
 }
 
 dependencies {
-    implementation project(path: ':base_mvp')
-    implementation project(path: ':base_repository')
+    implementation project(Projects.baseMvp)
+    implementation project(Projects.baseRepository)
 
     implementation Dependencies.kotlin
 
@@ -31,6 +31,9 @@ dependencies {
     implementation Dependencies.recyclerView
     implementation Dependencies.cardView
     implementation Dependencies.constraintLayout
+    implementation(Dependencies.googleMaps) {
+        exclude group: Dependencies.googleMapsExclude
+    }
 
     implementation Dependencies.timber
     implementation Dependencies.butterknife

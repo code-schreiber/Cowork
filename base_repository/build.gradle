@@ -3,7 +3,7 @@ apply plugin: 'kotlin'
 apply plugin: 'kotlin-kapt'
 
 dependencies {
-    api project(path: ':base_network')
+    api project(Projects.baseNetwork)
 
     implementation Dependencies.kotlin
 
@@ -11,7 +11,7 @@ dependencies {
     implementation Dependencies.daggerAndroid
 
     implementation Dependencies.rxAndroid
-    
+
     testImplementation Dependencies.mockitoKotlin
     testImplementation Dependencies.kluent
 }

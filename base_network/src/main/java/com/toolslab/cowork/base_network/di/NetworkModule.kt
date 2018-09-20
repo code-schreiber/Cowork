@@ -62,17 +62,16 @@ class NetworkModule {
                     .build()
 
     @Provides
-    fun provideHttpLoggingInterceptor(): HttpLoggingInterceptor {
-        val httpLoggingInterceptor = HttpLoggingInterceptor()
-        httpLoggingInterceptor.level = BASIC
-        return httpLoggingInterceptor
-    }
+    fun provideHttpLoggingInterceptor(): HttpLoggingInterceptor =
+            HttpLoggingInterceptor().apply {
+                level = BASIC
+            }
 
     @Provides
     fun provideMoshi(): Moshi =
             Moshi.Builder().build()
 
-    companion object {
+    private companion object {
         // Avoid cyclic dependency for AuthInterceptor used in OkHttpClient
         // See difference between provideOkHttpClient() and provideOkHttpAuthClient()
         private const val API = "API"

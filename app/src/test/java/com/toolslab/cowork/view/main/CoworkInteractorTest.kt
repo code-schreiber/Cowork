@@ -25,10 +25,10 @@ class CoworkInteractorTest {
 
     @Test
     fun listSpaces() {
-        val expected = Single.just(listOf(Space("a space")))
-        whenever(underTest.spaceRepository.listSpaces(credentials, country, city, space)).thenReturn(expected)
+        val expected = listOf(Space("space1", "snippet1", 1.1, 1.1))
+        whenever(underTest.spaceRepository.listSpaces(credentials, country, city, space)).thenReturn(Single.just(expected))
 
-        val spaces = underTest.listSpaces(credentials, country, city, space)
+        val spaces = underTest.listSpaces(credentials, country, city, space).blockingGet()
 
         spaces shouldEqual expected
     }
