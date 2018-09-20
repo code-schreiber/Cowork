@@ -5,7 +5,7 @@ import com.toolslab.cowork.base_network.storage.Credentials
 import com.toolslab.cowork.base_repository.SpaceRepository
 import javax.inject.Inject
 
-class CoworkInteractor @Inject constructor() {
+internal class CoworkInteractor @Inject constructor() {
 
     @Inject
     internal lateinit var spaceRepository: SpaceRepository

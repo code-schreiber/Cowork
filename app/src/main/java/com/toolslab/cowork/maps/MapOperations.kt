@@ -10,14 +10,14 @@ import com.toolslab.cowork.R
 import com.toolslab.cowork.util.VectorDrawableUtil
 import javax.inject.Inject
 
-class MapOperations @Inject constructor() {
+internal class MapOperations @Inject constructor() {
 
     @Inject
     internal lateinit var vectorDrawableUtil: VectorDrawableUtil
 
     internal lateinit var googleMap: GoogleMap
 
-    fun addMarker(title: String, snippet: String, latitude: Double, longitude: Double) {
+    internal fun addMarker(title: String, snippet: String, latitude: Double, longitude: Double) {
         googleMap.addMarker(MarkerOptions()
                 .title(title)
                 .snippet(snippet)
@@ -25,7 +25,7 @@ class MapOperations @Inject constructor() {
                 .position(LatLng(latitude, longitude)))
     }
 
-    fun moveCamera(minLatitude: Double, minLongitude: Double, maxLatitude: Double, maxLongitude: Double) {
+    internal fun moveCamera(minLatitude: Double, minLongitude: Double, maxLatitude: Double, maxLongitude: Double) {
         val bounds = LatLngBounds(LatLng(minLatitude, minLongitude), LatLng(maxLatitude, maxLongitude))
         googleMap.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, 0))
     }
