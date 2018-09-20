@@ -95,7 +95,7 @@ class CoworkActivityTest {
 
         underTest.onSearchClicked()
 
-        verify(underTest.presenter).listSpaces(country)
+        verify(underTest.presenter).searchSpaces(country)
     }
 
     @Test
@@ -106,7 +106,7 @@ class CoworkActivityTest {
 
         underTest.onSearchClicked()
 
-        verify(underTest.presenter).listSpaces(country, city)
+        verify(underTest.presenter).searchSpaces(country, city)
     }
 
     @Test
@@ -117,7 +117,7 @@ class CoworkActivityTest {
 
         underTest.onSearchClicked()
 
-        verify(underTest.presenter).listSpaces(country, city, space)
+        verify(underTest.presenter).searchSpaces(country, city, space)
     }
 
 }

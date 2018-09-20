@@ -85,11 +85,11 @@ class CoworkPresenterTest {
     }
 
     @Test
-    fun listSpaces() {
+    fun searchSpaces() {
         val credentials = underTest.createCredentials()
         whenever(mockCoworkInteractor.listSpaces(credentials, country, city, space)).thenReturn(Single.just(spaces))
 
-        underTest.listSpaces(country, city, space)
+        underTest.searchSpaces(country, city, space)
 
         verify(mockView).addMapMarker(space1)
         verify(mockView).addMapMarker(space2)
@@ -98,11 +98,11 @@ class CoworkPresenterTest {
     }
 
     @Test
-    fun listSpacesWithNoPlacesFoundError() {
+    fun searchSpacesWithNoPlacesFoundError() {
         val credentials = underTest.createCredentials()
         whenever(mockCoworkInteractor.listSpaces(credentials, country, city, space)).thenReturn(Single.error(NotFoundException(error)))
 
-        underTest.listSpaces(country, city, space)
+        underTest.searchSpaces(country, city, space)
 
         verify(mockView).getMapAsync()
         verify(mockView).showNoPlacesFoundError()
@@ -111,11 +111,11 @@ class CoworkPresenterTest {
     }
 
     @Test
-    fun listSpacesWithNoConnectionError() {
+    fun searchSpacesWithNoConnectionError() {
         val credentials = underTest.createCredentials()
         whenever(mockCoworkInteractor.listSpaces(credentials, country, city, space)).thenReturn(Single.error(NoConnectionException(error)))
 
-        underTest.listSpaces(country, city, space)
+        underTest.searchSpaces(country, city, space)
 
         verify(mockView).getMapAsync()
         verify(mockView).showNoConnectionError()
@@ -124,11 +124,11 @@ class CoworkPresenterTest {
     }
 
     @Test
-    fun listSpacesWithDefaultError() {
+    fun searchSpacesWithDefaultError() {
         val credentials = underTest.createCredentials()
         whenever(mockCoworkInteractor.listSpaces(credentials, country, city, space)).thenReturn(Single.error(error))
 
-        underTest.listSpaces(country, city, space)
+        underTest.searchSpaces(country, city, space)
 
         verify(mockView).getMapAsync()
         verify(mockView).showDefaultError()
@@ -137,8 +137,8 @@ class CoworkPresenterTest {
     }
 
     @Test
-    fun listSpacesWithoutCountry() {
-        underTest.listSpaces("", "", "")
+    fun searchSpacesWithoutCountry() {
+        underTest.searchSpaces("", "", "")
 
         verify(mockView).getMapAsync()
         verify(mockView).showInputMissesCountryError()

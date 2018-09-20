@@ -16,7 +16,7 @@ import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
 import javax.inject.Inject
 
-class CoworkPresenter @Inject constructor() :
+internal class CoworkPresenter @Inject constructor() :
         BasePresenter<CoworkContract.View>(), CoworkContract.Presenter {
 
     @Inject
@@ -33,7 +33,7 @@ class CoworkPresenter @Inject constructor() :
         compositeDisposable.clear()
     }
 
-    override fun listSpaces(country: String, city: String, space: String) {
+    override fun searchSpaces(country: String, city: String, space: String) {
         if (country.isEmpty()) {
             view.showInputMissesCountryError()
             return
@@ -42,13 +42,13 @@ class CoworkPresenter @Inject constructor() :
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        {
-                            Timber.d("${it.size} spaces found for $country, $city, $space")
+                        { spaces ->
+                            Timber.d("${spaces.size} spaces found for $country, $city, $space")
                             // Add a markers and move the camera
-                            it.forEach {
+                            spaces.forEach {
                                 view.addMapMarker(it)
                             }
-                            moveCamera(it)
+                            moveCamera(spaces)
                         },
                         {
                             Timber.e(it)

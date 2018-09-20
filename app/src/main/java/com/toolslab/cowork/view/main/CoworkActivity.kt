@@ -90,7 +90,7 @@ class CoworkActivity : BaseActivity(), CoworkContract.View, OnMapReadyCallback {
         val country = countryEditText.text.toString()
         val city = cityEditText.text.toString()
         val space = spaceEditText.text.toString()
-        presenter.listSpaces(country, city, space)
+        presenter.searchSpaces(country, city, space)
     }
 
 }
