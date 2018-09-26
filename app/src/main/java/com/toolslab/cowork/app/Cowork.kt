@@ -6,7 +6,7 @@ import android.os.Build.VERSION_CODES.LOLLIPOP
 import com.google.android.gms.security.ProviderInstaller
 import com.toolslab.cowork.BuildConfig
 import com.toolslab.cowork.base_repository.di.DaggerRepositoryComponent
-import com.toolslab.cowork.di.DaggerAppComponent
+import com.toolslab.cowork.app.di.DaggerAppComponent
 import dagger.android.AndroidInjector
 import dagger.android.DaggerApplication
 import okhttp3.TlsVersion

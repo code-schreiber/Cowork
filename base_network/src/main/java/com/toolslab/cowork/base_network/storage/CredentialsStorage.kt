@@ -16,7 +16,7 @@ class CredentialsStorage @Inject constructor() {
 
     internal fun getCredentials() = credentials
 
-    internal fun saveCredentials(creds: Credentials) {
+    fun saveCredentials(creds: Credentials) {
         credentials = creds
     }
 

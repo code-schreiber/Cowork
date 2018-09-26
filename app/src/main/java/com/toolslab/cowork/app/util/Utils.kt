@@ -1,5 +1,8 @@
 package com.toolslab.cowork.app.util
 
+import kotlin.collections.min
+import kotlin.collections.max
+
 internal fun List<Double>.median(): Double {
     if (this.isEmpty()) return 0.0
 
