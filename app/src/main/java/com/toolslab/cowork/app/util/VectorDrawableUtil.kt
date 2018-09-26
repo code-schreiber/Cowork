@@ -4,7 +4,6 @@ import android.annotation.TargetApi
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Bitmap.Config.ARGB_8888
-import android.graphics.Bitmap.createBitmap
 import android.graphics.Canvas
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.VectorDrawable
@@ -31,20 +30,18 @@ internal class VectorDrawableUtil @Inject constructor() {
     }
 
     @TargetApi(LOLLIPOP)
-    private fun getBitmap(vector: VectorDrawable): Bitmap? {
-        val bitmap = createBitmap(vector.intrinsicWidth, vector.intrinsicHeight, ARGB_8888)
-        val canvas = Canvas(bitmap)
-        vector.setBounds(0, 0, canvas.width, canvas.height)
-        vector.draw(canvas)
-        return bitmap
-    }
+    private fun getBitmap(vector: VectorDrawable): Bitmap? =
+            Bitmap.createBitmap(vector.intrinsicWidth, vector.intrinsicHeight, ARGB_8888).apply {
+                val canvas = Canvas(this)
+                vector.setBounds(0, 0, canvas.width, canvas.height)
+                vector.draw(canvas)
+            }
 
-    private fun getBitmap(vector: VectorDrawableCompat): Bitmap? {
-        val bitmap = createBitmap(vector.intrinsicWidth, vector.intrinsicHeight, ARGB_8888)
-        val canvas = Canvas(bitmap)
-        vector.setBounds(0, 0, canvas.width, canvas.height)
-        vector.draw(canvas)
-        return bitmap
-    }
+    private fun getBitmap(vector: VectorDrawableCompat): Bitmap? =
+            Bitmap.createBitmap(vector.intrinsicWidth, vector.intrinsicHeight, ARGB_8888).apply {
+                val canvas = Canvas(this)
+                vector.setBounds(0, 0, canvas.width, canvas.height)
+                vector.draw(canvas)
+            }
 
 }
