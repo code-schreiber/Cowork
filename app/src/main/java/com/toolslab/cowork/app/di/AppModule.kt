@@ -1,4 +1,4 @@
-package com.toolslab.cowork.di
+package com.toolslab.cowork.app.di
 
 import android.app.Application
 import android.content.Context

@@ -1,4 +1,4 @@
-package com.toolslab.cowork.view.base
+package com.toolslab.cowork.app.view.base
 
 import android.annotation.SuppressLint
 import android.support.annotation.StringRes

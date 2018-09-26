@@ -1,4 +1,4 @@
-package com.toolslab.cowork.view.base
+package com.toolslab.cowork.app.view.base
 
 import android.content.Context
 import android.support.annotation.StringRes

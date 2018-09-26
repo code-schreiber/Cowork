@@ -1,4 +1,4 @@
-package com.toolslab.cowork.view.main
+package com.toolslab.cowork.app.view.map
 
 import dagger.Module
 import dagger.Provides

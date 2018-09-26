@@ -1,13 +1,13 @@
-package com.toolslab.cowork.view.main
+package com.toolslab.cowork.app.view.map
 
 import com.nhaarman.mockito_kotlin.*
 import com.toolslab.cowork.BuildConfig
+import com.toolslab.cowork.app.util.max
+import com.toolslab.cowork.app.util.min
 import com.toolslab.cowork.base_network.storage.Credentials
 import com.toolslab.cowork.base_repository.exception.NoConnectionException
 import com.toolslab.cowork.base_repository.exception.NotFoundException
 import com.toolslab.cowork.base_repository.model.Space
-import com.toolslab.cowork.util.max
-import com.toolslab.cowork.util.min
 import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.android.plugins.RxAndroidPlugins

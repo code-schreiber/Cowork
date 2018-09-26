@@ -1,4 +1,4 @@
-package com.toolslab.cowork.util
+package com.toolslab.cowork.app.util
 
 import org.amshove.kluent.shouldEqual
 import org.junit.Test

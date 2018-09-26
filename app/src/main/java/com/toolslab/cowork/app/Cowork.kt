@@ -1,9 +1,10 @@
-package com.toolslab.cowork
+package com.toolslab.cowork.app
 
 import android.os.Build.VERSION.SDK_INT
 import android.os.Build.VERSION_CODES.JELLY_BEAN
 import android.os.Build.VERSION_CODES.LOLLIPOP
 import com.google.android.gms.security.ProviderInstaller
+import com.toolslab.cowork.BuildConfig
 import com.toolslab.cowork.base_repository.di.DaggerRepositoryComponent
 import com.toolslab.cowork.di.DaggerAppComponent
 import dagger.android.AndroidInjector

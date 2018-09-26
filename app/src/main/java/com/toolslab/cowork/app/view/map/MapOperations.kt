@@ -1,4 +1,4 @@
-package com.toolslab.cowork.maps
+package com.toolslab.cowork.app.view.map
 
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -7,7 +7,7 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.MarkerOptions
 import com.toolslab.cowork.R
-import com.toolslab.cowork.util.VectorDrawableUtil
+import com.toolslab.cowork.app.util.VectorDrawableUtil
 import javax.inject.Inject
 
 internal class MapOperations @Inject constructor() {

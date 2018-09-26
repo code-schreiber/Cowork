@@ -1,4 +1,4 @@
-package com.toolslab.cowork.view.base
+package com.toolslab.cowork.app.view.base
 
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.verify

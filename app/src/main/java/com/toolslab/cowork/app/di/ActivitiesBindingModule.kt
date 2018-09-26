@@ -1,6 +1,6 @@
-package com.toolslab.cowork.di
+package com.toolslab.cowork.app.di
 
-import com.toolslab.cowork.view.main.CoworkActivity
+import com.toolslab.cowork.app.view.map.CoworkActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -8,6 +8,6 @@ import dagger.android.ContributesAndroidInjector
 abstract class ActivitiesBindingModule {
 
     @ContributesAndroidInjector
-    abstract fun androidStarterKitActivity(): CoworkActivity
+    abstract fun coworkActivity(): CoworkActivity
 
 }

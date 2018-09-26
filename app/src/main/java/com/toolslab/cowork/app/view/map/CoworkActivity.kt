@@ -1,4 +1,4 @@
-package com.toolslab.cowork.view.main
+package com.toolslab.cowork.app.view.map
 
 import android.os.Bundle
 import android.view.View
@@ -11,9 +11,8 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.toolslab.cowork.R
+import com.toolslab.cowork.app.view.base.BaseActivity
 import com.toolslab.cowork.base_repository.model.Space
-import com.toolslab.cowork.maps.MapOperations
-import com.toolslab.cowork.view.base.BaseActivity
 import javax.inject.Inject
 
 class CoworkActivity : BaseActivity(), CoworkContract.View, OnMapReadyCallback {

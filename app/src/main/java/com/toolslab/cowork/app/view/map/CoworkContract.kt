@@ -1,4 +1,4 @@
-package com.toolslab.cowork.view.main
+package com.toolslab.cowork.app.view.map
 
 import com.toolslab.cowork.base_mvp.BaseView
 import com.toolslab.cowork.base_mvp.MvpPresenter

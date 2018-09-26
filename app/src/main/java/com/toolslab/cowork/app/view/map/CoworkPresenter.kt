@@ -1,15 +1,15 @@
-package com.toolslab.cowork.view.main
+package com.toolslab.cowork.app.view.map
 
 import android.support.annotation.VisibleForTesting
 import com.toolslab.cowork.BuildConfig.API_PASSWORD
 import com.toolslab.cowork.BuildConfig.API_USER
+import com.toolslab.cowork.app.util.max
+import com.toolslab.cowork.app.util.min
 import com.toolslab.cowork.base_mvp.BasePresenter
 import com.toolslab.cowork.base_network.storage.Credentials
 import com.toolslab.cowork.base_repository.exception.NoConnectionException
 import com.toolslab.cowork.base_repository.exception.NotFoundException
 import com.toolslab.cowork.base_repository.model.Space
-import com.toolslab.cowork.util.max
-import com.toolslab.cowork.util.min
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers

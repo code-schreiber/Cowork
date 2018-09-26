@@ -1,4 +1,4 @@
-package com.toolslab.cowork.view.main
+package com.toolslab.cowork.app.view.map
 
 import android.support.annotation.CheckResult
 import com.toolslab.cowork.base_network.storage.Credentials
