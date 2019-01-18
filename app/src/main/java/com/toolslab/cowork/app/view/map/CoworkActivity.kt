@@ -1,33 +1,20 @@
 package com.toolslab.cowork.app.view.map
 
 import android.os.Bundle
-import android.view.View
 import android.view.View.VISIBLE
-import android.widget.EditText
-import butterknife.BindView
-import butterknife.ButterKnife
-import butterknife.OnClick
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.toolslab.cowork.R
 import com.toolslab.cowork.app.view.base.BaseActivity
 import com.toolslab.cowork.base_repository.model.Space
+import kotlinx.android.synthetic.main.activity_cowork.*
 import javax.inject.Inject
 
-class CoworkActivity : BaseActivity(), CoworkContract.View, OnMapReadyCallback {
-
-    @BindView(R.id.activity_cowork_layout)
-    internal lateinit var parentLayout: View
-
-    @BindView(R.id.activity_cowork_country_edit_text)
-    internal lateinit var countryEditText: EditText
-
-    @BindView(R.id.activity_cowork_city_edit_text)
-    internal lateinit var cityEditText: EditText
-
-    @BindView(R.id.activity_cowork_space_edit_text)
-    internal lateinit var spaceEditText: EditText
+class CoworkActivity : BaseActivity(),
+        CoworkContract.View,
+        OnMapReadyCallback,
+        GoogleMap.OnCameraIdleListener {
 
     @Inject
     internal lateinit var mapOperations: MapOperations
@@ -38,7 +25,6 @@ class CoworkActivity : BaseActivity(), CoworkContract.View, OnMapReadyCallback {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cowork)
-        ButterKnife.bind(this)
         presenter.bind(this)
     }
 
@@ -60,16 +46,26 @@ class CoworkActivity : BaseActivity(), CoworkContract.View, OnMapReadyCallback {
      * installed Google Play services and returned to the app.
      */
     override fun onMapReady(googleMap: GoogleMap) {
-        mapOperations.googleMap = googleMap
+        googleMap.setOnCameraIdleListener(this)
+        mapOperations.setGoogleMap(googleMap)
         presenter.onMapReady()
     }
 
+    override fun onCameraIdle() {
+        val (country, city) = mapOperations.getCurrentLocation()
+        presenter.onUserMapGestureStopped(country, city)
+    }
+
     override fun showSearch() {
-        parentLayout.visibility = VISIBLE
+        activity_cowork_layout.visibility = VISIBLE
     }
 
     override fun addMapMarker(space: Space) {
         mapOperations.addMarker(space.title, space.snippet, space.latitude, space.longitude)
+    }
+
+    override fun removeMarkers() {
+        mapOperations.removeMarkers()
     }
 
     override fun moveCamera(minLatitude: Double, minLongitude: Double, maxLatitude: Double, maxLongitude: Double) {
@@ -80,16 +76,8 @@ class CoworkActivity : BaseActivity(), CoworkContract.View, OnMapReadyCallback {
         showMessage(R.string.error_input_misses_country)
     }
 
-    override fun showNoPlacesFoundError() {
-        showMessage(R.string.error_no_places_found)
-    }
-
-    @OnClick(R.id.activity_cowork_search_button)
-    internal fun onSearchClicked() {
-        val country = countryEditText.text.toString()
-        val city = cityEditText.text.toString()
-        val space = spaceEditText.text.toString()
-        presenter.searchSpaces(country, city, space)
+    override fun showNoPlacesFoundError(locationDescription: String) {
+        showMessage(R.string.error_no_places_found, locationDescription)
     }
 
 }

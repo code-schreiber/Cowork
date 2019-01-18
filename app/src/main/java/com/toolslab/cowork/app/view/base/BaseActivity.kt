@@ -25,4 +25,8 @@ open class BaseActivity : DaggerAppCompatActivity(), BaseView {
         uiMessenger.showMessage(this, id)
     }
 
+    internal fun showMessage(@StringRes id: Int, formatArgs: String) {
+        uiMessenger.showMessage(this, id, formatArgs)
+    }
+
 }

@@ -10,6 +10,8 @@ internal interface CoworkContract {
         fun searchSpaces(country: String, city: String = "", space: String = "")
 
         fun onMapReady()
+
+        fun onUserMapGestureStopped(country: String, city: String)
     }
 
     interface View : BaseView {
@@ -19,11 +21,13 @@ internal interface CoworkContract {
 
         fun addMapMarker(space: Space)
 
+        fun removeMarkers()
+
         fun moveCamera(minLatitude: Double, minLongitude: Double, maxLatitude: Double, maxLongitude: Double)
 
         fun showInputMissesCountryError()
 
-        fun showNoPlacesFoundError()
+        fun showNoPlacesFoundError(locationDescription: String)
     }
 
 }

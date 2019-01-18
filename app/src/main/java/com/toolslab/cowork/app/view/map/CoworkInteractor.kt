@@ -11,7 +11,7 @@ internal class CoworkInteractor @Inject constructor() {
     internal lateinit var spaceRepository: SpaceRepository
 
     @CheckResult
-    internal fun listSpaces(credentials: Credentials, country: String, city: String, space: String) =
+    internal fun listSpaces(credentials: Credentials, country: String, city: String, space: String = "") =
             spaceRepository.listSpaces(credentials, country, city, space)
 
 }

@@ -44,7 +44,7 @@ internal class CoworkPresenter @Inject constructor() :
                 .subscribe(
                         { spaces ->
                             Timber.d("${spaces.size} spaces found for $country, $city, $space")
-                            // Add a markers and move the camera
+                            view.removeMarkers()
                             spaces.forEach {
                                 view.addMapMarker(it)
                             }
@@ -53,7 +53,7 @@ internal class CoworkPresenter @Inject constructor() :
                         {
                             Timber.e(it)
                             when (it) {
-                                is NotFoundException -> view.showNoPlacesFoundError()
+                                is NotFoundException -> view.showNoPlacesFoundError(createLocationDescription(country, city))
                                 is NoConnectionException -> view.showNoConnectionError()
                                 else -> view.showDefaultError()
                             }
@@ -66,6 +66,37 @@ internal class CoworkPresenter @Inject constructor() :
         view.showSearch()
     }
 
+    override fun onUserMapGestureStopped(country: String, city: String) {
+        if (country.isNotEmpty()) {
+            searchSpaces(country, city)
+        }
+    }
+
+    private fun searchSpaces(country: String, city: String) {
+        compositeDisposable.clear() // Avoid two request arriving at the same time
+        compositeDisposable.add(coworkInteractor.listSpaces(createCredentials(), country, city)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        { spaces ->
+                            Timber.d("${spaces.size} spaces found for $country, $city")
+                            view.removeMarkers()
+                            spaces.forEach {
+                                view.addMapMarker(it)
+                            }
+                        },
+                        {
+                            Timber.e(it)
+                            when (it) {
+                                is NotFoundException -> view.showNoPlacesFoundError(createLocationDescription(country, city))
+                                is NoConnectionException -> view.showNoConnectionError()
+                                else -> view.showDefaultError()
+                            }
+                        }
+                )
+        )
+    }
+
     @VisibleForTesting
     internal fun moveCamera(spaces: List<Space>) {
         // Zoom into map close enough to show all spaces
@@ -76,5 +107,9 @@ internal class CoworkPresenter @Inject constructor() :
 
     @VisibleForTesting
     internal fun createCredentials() = Credentials(API_USER, API_PASSWORD)
+
+    private fun createLocationDescription(country: String, city: String): String {
+        return if (city.isEmpty()) country else "$city, $country"
+    }
 
 }

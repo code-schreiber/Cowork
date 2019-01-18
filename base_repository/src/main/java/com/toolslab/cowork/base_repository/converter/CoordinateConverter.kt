@@ -9,11 +9,11 @@ class CoordinateConverter @Inject constructor() : Converter<String, Double> {
     internal val default = 0.0
 
     override fun convert(source: String): Double {
-        try {
-            return source.toDouble()
+        return try {
+            source.toDouble()
         } catch (e: Exception) {
             // TODO log exception
-            return default
+            default
         }
     }
 

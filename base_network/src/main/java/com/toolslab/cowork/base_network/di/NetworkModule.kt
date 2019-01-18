@@ -34,7 +34,7 @@ class NetworkModule {
 
     @Provides
     @Named(API)
-    fun provideOkHttpClient(httpLoggingInterceptor: HttpLoggingInterceptor, authInterceptor: AuthInterceptor) =
+    fun provideOkHttpClient(httpLoggingInterceptor: HttpLoggingInterceptor, authInterceptor: AuthInterceptor): OkHttpClient =
             OkHttpClient.Builder()
                     .addInterceptor(httpLoggingInterceptor)
                     .addInterceptor(authInterceptor)
