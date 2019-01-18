@@ -12,8 +12,8 @@ android {
         versionName Versions.versionName
         resConfigs "en"
 
-        buildConfigField "String", "API_USER", API_USER
-        buildConfigField "String", "API_PASSWORD", API_PASSWORD
+        buildConfigField "String", "API_USER", System.env.API_USER ?: API_USER
+        buildConfigField "String", "API_PASSWORD", System.env.API_PASSWORD ?: API_PASSWORD
     }
 
     lintOptions {
