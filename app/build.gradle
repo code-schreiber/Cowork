@@ -12,8 +12,8 @@ android {
         versionName Versions.versionName
         resConfigs "en"
 
-        buildConfigField "String", "API_USER", getenv("API_USER")
-        buildConfigField "String", "API_PASSWORD", getenv("API_PASSWORD")
+        buildConfigField "String", "API_USER", API_USER
+        buildConfigField "String", "API_PASSWORD", API_PASSWORD
     }
 
     lintOptions {
@@ -36,8 +36,6 @@ dependencies {
     }
 
     implementation Dependencies.timber
-    implementation Dependencies.butterknife
-    kapt Dependencies.butterknifeCompiler
 
     kapt Dependencies.daggerCompiler
     implementation Dependencies.daggerAndroid
@@ -49,13 +47,4 @@ dependencies {
     // Tests
     testImplementation Dependencies.mockitoKotlin
     testImplementation Dependencies.kluent
-}
-
-private static def getenv(String varName) {
-    def var = System.getenv(varName)
-    if (var != null && !var.empty) {
-        return "\"$var\""
-    } else {
-        throw new Exception("$varName not found in environment variables!")
-    }
 }

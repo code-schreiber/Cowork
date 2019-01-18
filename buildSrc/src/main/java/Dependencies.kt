@@ -15,7 +15,6 @@ object Versions {
     const val googleMaps = "15.0.1"
 
     const val timber = "4.7.0"
-    const val butterknife = "8.8.1"
 
     const val dagger = "2.15"
 
@@ -43,8 +42,6 @@ object Dependencies {
     const val googleMapsExclude = androidSupport
 
     const val timber = "com.jakewharton.timber:timber:${Versions.timber}"
-    const val butterknife = "com.jakewharton:butterknife:${Versions.butterknife}"
-    const val butterknifeCompiler = "com.jakewharton:butterknife-compiler:${Versions.butterknife}"
 
     const val daggerCompiler = "com.google.dagger:dagger-compiler:${Versions.dagger}"
     const val daggerAndroid = "com.google.dagger:dagger-android:${Versions.dagger}"
