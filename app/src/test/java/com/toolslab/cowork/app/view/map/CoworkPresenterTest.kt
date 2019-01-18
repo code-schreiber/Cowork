@@ -105,7 +105,7 @@ class CoworkPresenterTest {
         underTest.searchSpaces(country, city, space)
 
         verify(mockView).getMapAsync()
-        verify(mockView).showNoPlacesFoundError()
+        verify(mockView).showNoPlacesFoundError("$city, $country")
         verify(mockCompositeDisposable).add(any())
         verifyNoMoreInteractions(mockView)
     }
