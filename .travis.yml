@@ -29,5 +29,5 @@ cache:
   - ".gradle"
 
 before_install:
-- openssl aes-256-cbc -K $encrypted_c94bdad3c4e2_key -iv $encrypted_c94bdad3c4e2_iv
-  -in secrets.tar.enc -out secrets.tar -d
+- openssl aes-256-cbc -K $encrypted_c94bdad3c4e2_key -iv $encrypted_c94bdad3c4e2_iv -in secrets.tar.enc -out secrets.tar -d
+- tar xvf secrets.tar
