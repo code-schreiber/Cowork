@@ -35,8 +35,6 @@ object Dependencies {
 
     private const val androidSupport = "com.android.support"
     const val appCompat = "$androidSupport:appcompat-v7:${Versions.googleSupport}"
-    const val recyclerView = "$androidSupport:recyclerview-v7:${Versions.googleSupport}"
-    const val cardView = "$androidSupport:cardview-v7:${Versions.googleSupport}"
     const val constraintLayout = "$androidSupport.constraint:constraint-layout:${Versions.constraintLayout}"
     const val googleMaps = "com.google.android.gms:play-services-maps:${Versions.googleMaps}"
     const val googleMapsExclude = androidSupport

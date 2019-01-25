@@ -46,8 +46,6 @@ dependencies {
     implementation Dependencies.kotlin
 
     implementation Dependencies.appCompat
-    implementation Dependencies.recyclerView
-    implementation Dependencies.cardView
     implementation Dependencies.constraintLayout
     implementation(Dependencies.googleMaps) {
         exclude group: Dependencies.googleMapsExclude
