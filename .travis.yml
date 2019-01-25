@@ -27,3 +27,7 @@ cache:
   - "$HOME/.m2/repository"
   - "$HOME/.gradle"
   - ".gradle"
+
+before_install:
+- openssl aes-256-cbc -K $encrypted_c94bdad3c4e2_key -iv $encrypted_c94bdad3c4e2_iv
+  -in secrets.tar.enc -out secrets.tar -d
