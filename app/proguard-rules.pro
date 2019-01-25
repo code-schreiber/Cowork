@@ -34,3 +34,16 @@
 
 # Ignore JSR 305 annotations for embedding nullability information.
 -dontwarn javax.annotation.**
+
+# OkHttp platform used only on JVM and when Conscrypt dependency is available.
+-dontwarn okhttp3.internal.platform.ConscryptPlatform
+
+## Moshi ##
+-dontwarn okio.**
+-keepclasseswithmembers class * {
+    @com.squareup.moshi.* <methods>;
+}
+-keep @com.squareup.moshi.JsonQualifier interface *
+
+## Dagger ##
+-dontwarn dagger.android.**
