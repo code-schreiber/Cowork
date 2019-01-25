@@ -12,8 +12,26 @@ android {
         versionName Versions.versionName
         resConfigs "en"
 
-        buildConfigField "String", "API_USER", getenv("API_USER")
-        buildConfigField "String", "API_PASSWORD", getenv("API_PASSWORD")
+        buildConfigField "String", "API_USER", System.env.API_USER ?: API_USER
+        buildConfigField "String", "API_PASSWORD", System.env.API_PASSWORD ?: API_PASSWORD
+    }
+
+    signingConfigs {
+        releaseConfig {
+            storeFile file("../keystore.jks")
+            keyAlias System.env.RELEASE_KEY_ALIAS ?: RELEASE_KEY_ALIAS
+            keyPassword System.env.RELEASE_KEY_PASSWORD ?: RELEASE_KEY_PASSWORD
+            storePassword System.env.RELEASE_KEYSTORE_PASSWORD ?: RELEASE_KEYSTORE_PASSWORD
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            shrinkResources false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.releaseConfig
+        }
     }
 
     lintOptions {
@@ -22,19 +40,18 @@ android {
 }
 
 dependencies {
-    implementation project(path: ':base_mvp')
-    implementation project(path: ':base_repository')
+    implementation project(Projects.baseMvp)
+    implementation project(Projects.baseRepository)
 
     implementation Dependencies.kotlin
 
     implementation Dependencies.appCompat
-    implementation Dependencies.recyclerView
-    implementation Dependencies.cardView
     implementation Dependencies.constraintLayout
+    implementation(Dependencies.googleMaps) {
+        exclude group: Dependencies.googleMapsExclude
+    }
 
     implementation Dependencies.timber
-    implementation Dependencies.butterknife
-    kapt Dependencies.butterknifeCompiler
 
     kapt Dependencies.daggerCompiler
     implementation Dependencies.daggerAndroid
@@ -46,13 +63,4 @@ dependencies {
     // Tests
     testImplementation Dependencies.mockitoKotlin
     testImplementation Dependencies.kluent
-}
-
-private static def getenv(String varName) {
-    def var = System.getenv(varName)
-    if (var != null && !var.empty) {
-        return "\"$var\""
-    } else {
-        throw new Exception("$varName not found in environment variables!")
-    }
 }

@@ -8,16 +8,18 @@ import com.toolslab.cowork.base_network.ApiEndpoint.Query.USERNAME
 import com.toolslab.cowork.base_network.model.Jwt
 import com.toolslab.cowork.base_network.model.Validation
 import io.reactivex.Single
+import retrofit2.http.Field
+import retrofit2.http.FormUrlEncoded
 import retrofit2.http.Header
 import retrofit2.http.POST
-import retrofit2.http.Query
 
 interface CoworkingMapAuthService {
 
+    @FormUrlEncoded
     @POST(JWT_AUTH)
     fun getJwt(
-            @Query(USERNAME) user: String,
-            @Query(PASSWORD) password: String
+            @Field(USERNAME) user: String,
+            @Field(PASSWORD) password: String
     ): Single<Jwt>
 
     @POST(VALIDATE)

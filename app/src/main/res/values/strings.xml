@@ -2,8 +2,9 @@
 
     <string name="app_name">Cowork</string>
 
-    <string name="country">Country (needed)</string>
-    <string name="city">City (optional)</string>
-    <string name="coworking_space_name">Coworking space name (optional)</string>
+    <string name="error_input_misses_country">Country is needed for searching</string>
+    <string name="error_no_places_found">No places found in %s</string>
+    <string name="error_no_connection">Please check your internet connection</string>
+    <string name="error_default">An unknown error occurred</string>
 
 </resources>

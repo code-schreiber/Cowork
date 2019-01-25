@@ -3,46 +3,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.toolslab.cowork.view.main.CoworkActivity">
+    tools:context="com.toolslab.cowork.app.view.map.CoworkActivity">
 
     <LinearLayout
+        android:id="@+id/activity_cowork_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="gone"
+        tools:visibility="visible">
 
-        <EditText
-            android:id="@+id/activity_cowork_country_edit_text"
+        <fragment
+            android:id="@+id/activity_cowork_map_fragment"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/country"
-            android:text="Germany" />
-
-        <EditText
-            android:id="@+id/activity_cowork_city_edit_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/city"
-            android:text="Berlin" />
-
-        <EditText
-            android:id="@+id/activity_cowork_space_edit_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/coworking_space_name" />
-
-        <Button
-            android:id="@+id/activity_cowork_search_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Search" />
-
-        <TextView
-            android:id="@+id/activity_cowork_text_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scrollbars="vertical"
-            android:textSize="@dimen/font_small"
-            tools:text="text comes here" />
+            android:layout_height="match_parent" />
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

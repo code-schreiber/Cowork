@@ -19,8 +19,4 @@
     <dimen name="view_size_large">72dp</dimen>
     <dimen name="view_size_huge">180dp</dimen>
 
-    <!-- Cards-->
-    <dimen name="card_radius">2dp</dimen>
-    <dimen name="card_elevation">2dp</dimen>
-
 </resources>

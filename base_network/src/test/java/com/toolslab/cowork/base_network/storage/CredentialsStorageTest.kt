@@ -32,7 +32,7 @@ class CredentialsStorageTest {
     @Test
     fun getCredentials() {
         val expected = credentials
-        CredentialsStorage.credentials = expected
+        underTest.saveCredentials(expected)
 
         val credentials = underTest.getCredentials()
 
@@ -45,7 +45,7 @@ class CredentialsStorageTest {
 
         underTest.saveCredentials(expected)
 
-        CredentialsStorage.credentials shouldEqual expected
+        underTest.getCredentials() shouldEqual expected
     }
 
 }
