@@ -16,6 +16,24 @@ android {
         buildConfigField "String", "API_PASSWORD", System.env.API_PASSWORD ?: API_PASSWORD
     }
 
+    signingConfigs {
+        releaseConfig {
+            storeFile file("../keystore.jks")
+            keyAlias System.env.RELEASE_KEY_ALIAS ?: RELEASE_KEY_ALIAS
+            keyPassword System.env.RELEASE_KEY_PASSWORD ?: RELEASE_KEY_PASSWORD
+            storePassword System.env.RELEASE_KEYSTORE_PASSWORD ?: RELEASE_KEYSTORE_PASSWORD
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.releaseConfig
+        }
+    }
+
     lintOptions {
         abortOnError true
     }
