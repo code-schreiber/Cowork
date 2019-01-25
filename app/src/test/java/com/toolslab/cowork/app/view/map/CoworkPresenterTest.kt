@@ -14,7 +14,6 @@ import io.reactivex.android.plugins.RxAndroidPlugins
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.internal.schedulers.ExecutorScheduler
 import io.reactivex.plugins.RxJavaPlugins
-import org.amshove.kluent.shouldEqual
 import org.junit.Before
 import org.junit.BeforeClass
 import org.junit.Test
@@ -32,6 +31,7 @@ class CoworkPresenterTest {
     private val latitude2 = 2.2
     private val longitude1 = 1.13
     private val longitude2 = 2.24
+    private val credentials = Credentials(BuildConfig.API_USER, BuildConfig.API_PASSWORD)
     private val minLatitude = listOf(latitude1, latitude2).min()
     private val minLongitude = listOf(longitude1, longitude2).min()
     private val maxLatitude = listOf(latitude1, latitude2).max()
@@ -86,7 +86,6 @@ class CoworkPresenterTest {
 
     @Test
     fun searchSpaces() {
-        val credentials = underTest.createCredentials()
         whenever(mockCoworkInteractor.listSpaces(credentials, country, city, space)).thenReturn(Single.just(spaces))
 
         underTest.searchSpaces(country, city, space)
@@ -99,7 +98,6 @@ class CoworkPresenterTest {
 
     @Test
     fun searchSpacesWithNoPlacesFoundError() {
-        val credentials = underTest.createCredentials()
         whenever(mockCoworkInteractor.listSpaces(credentials, country, city, space)).thenReturn(Single.error(NotFoundException(error)))
 
         underTest.searchSpaces(country, city, space)
@@ -112,7 +110,6 @@ class CoworkPresenterTest {
 
     @Test
     fun searchSpacesWithNoConnectionError() {
-        val credentials = underTest.createCredentials()
         whenever(mockCoworkInteractor.listSpaces(credentials, country, city, space)).thenReturn(Single.error(NoConnectionException(error)))
 
         underTest.searchSpaces(country, city, space)
@@ -125,7 +122,6 @@ class CoworkPresenterTest {
 
     @Test
     fun searchSpacesWithDefaultError() {
-        val credentials = underTest.createCredentials()
         whenever(mockCoworkInteractor.listSpaces(credentials, country, city, space)).thenReturn(Single.error(error))
 
         underTest.searchSpaces(country, city, space)
@@ -155,17 +151,43 @@ class CoworkPresenterTest {
     }
 
     @Test
+    fun onUserMapGestureStopped() {
+        whenever(mockCoworkInteractor.listSpaces(credentials, country, city)).thenReturn(Single.just(spaces))
+
+        underTest.onUserMapGestureStopped(country, city)
+
+        verify(mockView).getMapAsync()
+        verify(mockView).removeMarkers()
+        verify(mockView).addMapMarker(space1)
+        verify(mockView).addMapMarker(space2)
+        verify(mockCompositeDisposable).clear()
+        verify(mockCompositeDisposable).add(any())
+    }
+
+    @Test
+    fun onUserMapGestureStoppedWithSameLocation() {
+        whenever(mockCoworkInteractor.listSpaces(credentials, country, city)).thenReturn(Single.just(spaces))
+
+        underTest.onUserMapGestureStopped(country, city)
+
+        verify(mockView).getMapAsync()
+        verify(mockView).removeMarkers()
+        verify(mockView).addMapMarker(space1)
+        verify(mockView).addMapMarker(space2)
+        verify(mockCompositeDisposable).clear()
+        verify(mockCompositeDisposable).add(any())
+
+        underTest.onUserMapGestureStopped(country, city)
+
+        verifyNoMoreInteractions(mockView)
+        verifyNoMoreInteractions(mockCompositeDisposable)
+    }
+
+    @Test
     fun moveCamera() {
         underTest.moveCamera(spaces)
 
         verify(mockView).moveCamera(minLatitude, minLongitude, maxLatitude, maxLongitude)
-    }
-
-    @Test
-    fun createCredentials() {
-        val credentials = underTest.createCredentials()
-
-        credentials shouldEqual Credentials(BuildConfig.API_USER, BuildConfig.API_PASSWORD)
     }
 
 }

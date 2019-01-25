@@ -25,6 +25,9 @@ internal class CoworkPresenter @Inject constructor() :
     @Inject
     internal lateinit var coworkInteractor: CoworkInteractor
 
+    private var lastCountry = ""
+    private var lastCity = ""
+
     override fun onBound(view: CoworkContract.View) {
         view.getMapAsync()
     }
@@ -68,8 +71,15 @@ internal class CoworkPresenter @Inject constructor() :
 
     override fun onUserMapGestureStopped(country: String, city: String) {
         if (country.isNotEmpty()) {
-            searchSpaces(country, city)
+            if (isNewSearch(country, city)) searchSpaces(country, city)
         }
+    }
+
+    private fun isNewSearch(country: String, city: String): Boolean {
+        val isNewSearch = country != lastCountry || city != lastCity
+        lastCountry = country
+        lastCity = city
+        return isNewSearch
     }
 
     private fun searchSpaces(country: String, city: String) {
@@ -105,8 +115,7 @@ internal class CoworkPresenter @Inject constructor() :
         view.moveCamera(latitudes.min(), longitudes.min(), latitudes.max(), longitudes.max())
     }
 
-    @VisibleForTesting
-    internal fun createCredentials() = Credentials(API_USER, API_PASSWORD)
+    private fun createCredentials() = Credentials(API_USER, API_PASSWORD)
 
     private fun createLocationDescription(country: String, city: String): String {
         return if (city.isEmpty()) country else "$city, $country"
