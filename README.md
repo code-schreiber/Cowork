@@ -9,12 +9,14 @@
 <p align="center">
  <b>Cowork</b>
  <br>
- <img src='https://github.com/code-schreiber/Cowork/raw/master/app/src/main/ic_launcher-web.png' width='100' height='100'/>
+ <img src='https://github.com/code-schreiber/Cowork/raw/master/metadata/en-US/images/icon.png' width='100' height='100'/>
  <br>
  💻 💼 Work together! 👥 🖥
+ <br>
+ <a href='https://play.google.com/store/apps/details?id=com.toolslab.cowork&utm_source=github'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png' width='300'/></a>
 </p>
   
-This project aims to provide an app with a global map of coworking spaces around the world.
+This project aims to provide an app with a global map of coworking spaces around the world 🌍🌎🌏
   
   
 ###### Technical details and used technologies
