@@ -3,9 +3,7 @@ package com.toolslab.cowork.app.view.map
 import android.view.View.VISIBLE
 import android.widget.LinearLayout
 import com.google.android.gms.maps.GoogleMap
-import com.nhaarman.mockito_kotlin.mock
-import com.nhaarman.mockito_kotlin.verify
-import com.nhaarman.mockito_kotlin.whenever
+import com.nhaarman.mockito_kotlin.*
 import com.toolslab.cowork.R
 import com.toolslab.cowork.base_repository.model.Space
 import org.junit.Before
@@ -21,7 +19,7 @@ class CoworkActivityTest {
     private val space1 = Space("space1", "snippet1", minLatitude, minLongitude)
 
     private val mockLinearLayout: LinearLayout = mock()
-    private val googleMap: GoogleMap = mock()
+    private val mockGoogleMap: GoogleMap = mock()
 
     private val underTest = CoworkActivity()
 
@@ -29,14 +27,56 @@ class CoworkActivityTest {
     fun setUp() {
         underTest.presenter = mock()
         underTest.mapOperations = mock()
+        underTest.permissionHelper = mock()
         underTest.uiMessenger = mock()
     }
 
     @Test
-    fun onMapReady() {
-        underTest.onMapReady(googleMap)
+    fun onRequestPermissionsResultGranted() {
+        val requestCode = 123
+        val permissions = emptyArray<String>()
+        val grantResults = intArrayOf()
+        whenever(underTest.permissionHelper.isLocationPermissionEnabled(requestCode, permissions, grantResults)).thenReturn(true)
 
-        verify(underTest.mapOperations).setGoogleMap(googleMap)
+        underTest.onRequestPermissionsResult(requestCode, permissions, grantResults)
+
+        verify(underTest.mapOperations).enableMyLocation()
+        verify(underTest.uiMessenger).showMessage(underTest, R.string.message_how_to_zoom_in)
+    }
+
+    @Test
+    fun onRequestPermissionsResult() {
+        whenever(underTest.permissionHelper.isLocationPermissionEnabled(any(), any(), any())).thenReturn(false)
+
+        underTest.onRequestPermissionsResult(-1, emptyArray(), intArrayOf())
+
+        verifyZeroInteractions(underTest.mapOperations)
+        verify(underTest.uiMessenger, never()).showMessage(underTest, R.string.message_how_to_zoom_in)
+    }
+
+    @Test
+    fun onMapReady() {
+        whenever(underTest.permissionHelper.isLocationPermissionEnabled(underTest)).thenReturn(false)
+
+        underTest.onMapReady(mockGoogleMap)
+
+        verify(mockGoogleMap).setOnCameraIdleListener(underTest)
+        verify(underTest.permissionHelper).requestPermission(underTest)
+        verify(underTest.mapOperations, never()).enableMyLocation()
+        verify(underTest.mapOperations).setGoogleMap(mockGoogleMap)
+        verify(underTest.presenter).onMapReady()
+    }
+
+    @Test
+    fun onMapReadyWithLocationPermission() {
+        whenever(underTest.permissionHelper.isLocationPermissionEnabled(underTest)).thenReturn(true)
+
+        underTest.onMapReady(mockGoogleMap)
+
+        verify(mockGoogleMap).setOnCameraIdleListener(underTest)
+        verify(underTest.permissionHelper, never()).requestPermission(underTest)
+        verify(underTest.mapOperations).enableMyLocation()
+        verify(underTest.mapOperations).setGoogleMap(mockGoogleMap)
         verify(underTest.presenter).onMapReady()
     }
 

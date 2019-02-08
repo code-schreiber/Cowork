@@ -6,6 +6,7 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.toolslab.cowork.R
+import com.toolslab.cowork.app.view.PermissionHelper
 import com.toolslab.cowork.app.view.base.BaseActivity
 import com.toolslab.cowork.base_repository.model.Space
 import kotlinx.android.synthetic.main.activity_cowork.*
@@ -20,6 +21,9 @@ class CoworkActivity : BaseActivity(),
     internal lateinit var mapOperations: MapOperations
 
     @Inject
+    internal lateinit var permissionHelper: PermissionHelper
+
+    @Inject
     internal lateinit var presenter: CoworkContract.Presenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,6 +35,15 @@ class CoworkActivity : BaseActivity(),
     override fun onDestroy() {
         presenter.unbind(this)
         super.onDestroy()
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int,
+                                            permissions: Array<out String>,
+                                            grantResults: IntArray) {
+        if (permissionHelper.isLocationPermissionEnabled(requestCode, permissions, grantResults)) {
+            mapOperations.enableMyLocation()
+            showMessage(R.string.message_how_to_zoom_in)
+        }
     }
 
     override fun getMapAsync() {
@@ -48,6 +61,11 @@ class CoworkActivity : BaseActivity(),
     override fun onMapReady(googleMap: GoogleMap) {
         googleMap.setOnCameraIdleListener(this)
         mapOperations.setGoogleMap(googleMap)
+        if (permissionHelper.isLocationPermissionEnabled(this)) {
+            mapOperations.enableMyLocation()
+        } else {
+            permissionHelper.requestPermission(this)
+        }
         presenter.onMapReady()
     }
 

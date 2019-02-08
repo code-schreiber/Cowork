@@ -1,5 +1,6 @@
 package com.toolslab.cowork.app.view.map
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.location.Address
 import android.location.Geocoder
@@ -33,6 +34,12 @@ internal class MapOperations @Inject constructor() {
     private lateinit var googleMap: GoogleMap
 
     private var markers = mutableListOf<Marker>()
+
+    @SuppressLint("MissingPermission")
+    internal fun enableMyLocation() {
+        // This shows the "locate me" button on the map
+        googleMap.isMyLocationEnabled = true
+    }
 
     internal fun setGoogleMap(googleMap: GoogleMap) {
         this.googleMap = googleMap

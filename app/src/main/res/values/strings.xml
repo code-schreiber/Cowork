@@ -2,6 +2,8 @@
 
     <string name="app_name">Cowork</string>
 
+    <string name="message_how_to_zoom_in">Tap on the \"Locate me\" icon to zoom in</string>
+
     <string name="error_input_misses_country">Country is needed for searching</string>
     <string name="error_no_places_found">No places found in %s</string>
     <string name="error_no_connection">Please check your internet connection</string>
